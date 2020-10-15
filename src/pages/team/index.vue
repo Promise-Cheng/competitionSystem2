@@ -10,6 +10,7 @@
       highlight-current-row
       @current-change="handleCurrentChange"
       :max-height="max"
+      empty-text="暂未加入任何团队"
       :max-width="maxWidth"
       :data="tableData.filter(data => !search || data.teamName.toLowerCase().includes(search.toLowerCase())
        || data.Role.toLowerCase().includes(search.toLowerCase())

@@ -16,6 +16,7 @@
                   :max-height="max"
                   :max-width="maxWidth"
                   highlight-current-row
+                  empty-text="暂未参加竞赛"
                   @row-click="handleCurrentChange"
                   :data="tableData.filter(data => !search
          || data.compName.toLowerCase().includes(search.toLowerCase())
@@ -52,41 +53,6 @@
           </el-table-column>
         </el-table>
       <el-button type="primary" style="width: 100%" @click="goComp" icon="el-icon-back">报名竞赛</el-button>
-<!--      <div v-else>-->
-<!--        <el-table ref="topicTable1"-->
-<!--                  :height="max"-->
-<!--                  :max-height="max"-->
-<!--                  :max-width="maxWidth"-->
-<!--                  highlight-current-row-->
-<!--                  @current-change="handleCurrentChange"-->
-<!--                  :data="tableData.filter(data => !search-->
-<!--       || data.compName.toLowerCase().includes(search.toLowerCase())-->
-<!--        || data.CompStateName.toLowerCase().includes(search.toLowerCase()))"-->
-<!--        >-->
-
-<!--          <el-table-column-->
-<!--            prop="compName"-->
-<!--            label="竞赛名称"-->
-<!--            width="">-->
-<!--          </el-table-column>-->
-<!--          <el-table-column-->
-<!--            prop="teamName"-->
-<!--            label="参与团队"-->
-<!--            width="">-->
-<!--          </el-table-column>-->
-<!--          <el-table-column-->
-<!--            prop="TypeName"-->
-<!--            label="类型"-->
-<!--            width="60%">-->
-<!--          </el-table-column>-->
-<!--          <el-table-column-->
-<!--            prop="CompStateName"-->
-<!--            label="状态"-->
-<!--            width="80%">-->
-<!--          </el-table-column>-->
-
-<!--        </el-table>-->
-<!--      </div>-->
       <Footer></Footer>
     </div>
 </template>
