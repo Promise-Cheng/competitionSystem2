@@ -3,73 +3,7 @@
         <h2  class="nav">欢迎注册</h2>
     <el-divider></el-divider>
     <div  class="el-main">
-      <el-menu
-        :default-active="this.$route.path"
-        class="el-menu-demo"
-        mode="horizontal"
-        router>
-        <el-menu-item index="/login_tea" style="width: 50%">登录</el-menu-item>
-        <el-menu-item index="/register_tea" style="width: 50%">注册</el-menu-item>
-      </el-menu>
-      <el-row v-show="isStudent" class="el-row">
-        <el-col :span="24">
-          <div class="grid-content bg-purple-dark">
-            学号:
-            <el-input
-              placeholder="请输入学号"
-              prefix-icon="el-icon-user"
-              v-model="stuNum" style="width: 85%">
-            </el-input>
-            <br/>
-            密码:
-            <el-input
-              placeholder="请输入密码"
-              prefix-icon="el-icon-lock"
-              show-password
-              v-model="password" style="width: 85%">
-            </el-input>
-            <br/>
-            姓名:
-            <el-input
-              placeholder="请输入姓名"
-              prefix-icon="el-icon-s-custom"
-              v-model="stuName" style="width: 85%">
-            </el-input>
-            <br/>
-            班级:
-            <el-input
-              placeholder="请输入班级"
-              prefix-icon="el-icon-bank-card"
-              v-model="class_" style="width: 85%">
-            </el-input>
-            <br/>
-            QQ :
-            <el-input
-              placeholder="请输入QQ"
-              prefix-icon="el-icon-chat-dot-round"
-              v-model="QQ" style="width: 85%">
-            </el-input>
-            <br/>
-            邮箱:
-            <el-input
-              placeholder="请输入邮箱"
-              prefix-icon="el-icon-message"
-              type="email"
-              v-model="email" style="width: 85%">
-            </el-input>
-            <br/>
-            手机:
-            <el-input
-              placeholder="请输入手机号"
-              prefix-icon="el-icon-phone"
-              type="tel"
-              v-model="phone" style="width: 85%">
-            </el-input>
-            <br/>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row v-show="!isStudent" class="el-row">
+      <el-row class="el-row">
         <el-col :span="24">
           <div class="grid-content bg-purple-dark">
             学工号:
