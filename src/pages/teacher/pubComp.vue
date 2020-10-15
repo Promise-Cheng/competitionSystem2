@@ -49,7 +49,7 @@
             </el-date-picker>
           </div>
         </el-form-item>
-        <el-form-item label="最大竞赛人数:" >
+        <el-form-item label="团队人数限制:" >
           <el-select v-model="personNum" style="width: 20%">
             <el-option
               v-for="item in options1"
