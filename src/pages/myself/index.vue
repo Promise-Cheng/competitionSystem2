@@ -7,7 +7,6 @@
         <el-button type="text" >
           <el-avatar :size="80" > {{formLabelAlign.stuName}}</el-avatar>
         </el-button>
-
       </div>
       <br/>
       <div style="text-align: left" @click="myDetail">
@@ -18,8 +17,12 @@
         学生ID:{{formLabelAlign.stuNum}}
       </div>
       <br/>
-      <el-divider></el-divider>
     </div>
+    <div style="margin-top: 20px">
+      <mt-cell title="标题文字" value="说明文字"></mt-cell>
+      <mt-cell title="标题文字" value="说明文字"></mt-cell>
+    </div>
+
 <!--    <div>-->
 <!--      <h3>我的竞赛信息</h3>-->
 <!--          <el-button icon="el-icon-tickets" @click="myComp">{{formLabelAlign.stuName}}</el-button>-->

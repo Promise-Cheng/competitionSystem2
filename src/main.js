@@ -5,8 +5,11 @@ import router from './router'
 import Mint from'mint-ui'
 import './style/weui.scss';
 import'mint-ui/lib/style.css'
+import lodash from 'lodash'
+
 
 Vue.use(Mint);
+Vue.use(lodash);
 /* 或写为
  * Vue.use(Button)
  * Vue.use(Cell)
