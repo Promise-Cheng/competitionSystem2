@@ -21,6 +21,7 @@ import CompSubject from '../pages/myself/compSubject'
 import CompSubjectDetail from '../pages/myself/compSubjectDetail'
 import QueryResult from '../pages/myself/queryResult'
 import EditPassword from '../pages/myself/editPassword'
+import About from "@/pages/myself/About";
 
  /* stuCompetition */
 import Start from '../pages/competition/start'
@@ -95,6 +96,11 @@ Router.prototype.push = function push(location) {
       path:'/home/homeNews',
       name:'homeNews',
       component:HomeNews
+    },
+    {
+      path:'/myself/about',
+      name:'About',
+      component:About
     },
     {
       path:'/home/compIntroduce',

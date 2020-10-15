@@ -2,17 +2,6 @@
   <div>
     <mt-header title="我的信息" fixed style="line-height: 20px">
       <mt-button icon="back" slot="left" @click="back">返回</mt-button>
-      <div class="grid-content bg-purple-dark" slot="right">
-        <el-dropdown @command="handleCommand">
-              <span class="el-dropdown-link" style="color: white">
-               <mt-button icon="more" slot="right"></mt-button>
-              </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="a">修改信息</el-dropdown-item>
-            <el-dropdown-item command="b">修改密码</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
     </mt-header>
 
     <el-divider></el-divider>
@@ -58,21 +47,17 @@
             QQ: '',
             email: '',
             phone: '',
-            isEdit: true,
+            isEdit: false,
             Loading:false
           }
       },
       mounted() {
-
         this.stuNum =this.$store.state.user.info.stuNum
         this.stuName =this.$store.state.user.info.stuName
         this.class_ =this.$store.state.user.info.class
         this.QQ =this.$store.state.user.info.QQ
         this.email =this.$store.state.user.info.email
         this.phone =this.$store.state.user.info.phoneNum
-        if(this.$route.params.isEdit){
-          this.isEdit=false;
-        }
       },
       methods:{
           back(){
