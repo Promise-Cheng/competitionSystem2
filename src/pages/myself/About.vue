@@ -23,7 +23,7 @@
         </div>
       </template>
     </mt-cell>
-    <div class="text-desc text-center bottom_positon">{{ footerTips }}</div>
+    <div class="text-desc bottom_positon">{{ footerTips }}</div>
   </div>
 </template>
 

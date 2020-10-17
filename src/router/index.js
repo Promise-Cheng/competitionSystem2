@@ -309,6 +309,9 @@ Router.prototype.push = function push(location) {
       path:'/register_tea',
       name:'teacherRegister',
       component:TeacherRegister,
+      meta: {
+        keepAlive: true // 不需要缓存
+      }
     },
     {
       path:'/teacher/home',

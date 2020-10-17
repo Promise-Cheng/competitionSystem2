@@ -1,18 +1,8 @@
 <template>
   <div>
-        <h2 style="line-height: 3 ">欢迎登录</h2>
+    <h2 style="line-height: 3 ">欢迎登录</h2>
     <el-divider></el-divider>
     <div class="el-main">
-
-      <el-menu
-        :default-active="this.$route.path"
-        class="el-menu-demo"
-        mode="horizontal"
-        router>
-        <el-menu-item index="/login_tea" style="width: 50%">登录</el-menu-item>
-        <el-menu-item index="/register_tea" style="width: 50%">注册</el-menu-item>
-      </el-menu>
-
         <el-row class="el-row">
           <el-col :span="24">
             <div class="grid-content bg-purple-dark">
@@ -39,8 +29,8 @@
             </div>
           </el-col>
         </el-row>
-
     </div>
+    <div class="text-desc text-center bottom_positon">{{ footerTips }}</div>
   </div>
 
 </template>
@@ -54,7 +44,8 @@
           stuId: '',
           password: '',
           activeIndex: '1',
-          Loading:false
+          Loading:false,
+          footerTips:'竞赛平台系统——教师端'
         };
       },
       methods:{
@@ -129,5 +120,14 @@
   }
   .el-row{
     line-height: 1.7;
+  }
+  .bottom_positon {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+  }
+  .text-desc{
+    font-size:12px;
+    color: #999;
   }
 </style>
