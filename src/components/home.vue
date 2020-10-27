@@ -16,6 +16,17 @@
         </el-dropdown>
       </div>
     </mt-header>
+    <div style="height:200px;margin-bottom: 30px">
+      <mt-swipe>
+        <template v-for="(item,index) in imgList">
+          <mt-swipe-item :key="`user${index}`">
+            <img :src="item" height="200" :width="width" alt="加载失败！" />
+          </mt-swipe-item>
+        </template>
+      </mt-swipe>
+    </div>
+    <Search/>
+    <el-divider></el-divider>
     <div style="display: flex; justify-content:space-between">
       <!--      <div  style=" background: #E4E7ED;width: 45%;float: left">-->
       <div style="background: #E4E7ED;" @click="goTeam">
@@ -32,124 +43,40 @@
         <p>{{personNum}}</p>
       </div>
     </div>
-    <el-divider></el-divider>
-    <Search/>
-    <el-divider></el-divider>
+    <el-divider></el-divider><!--    <el-divider></el-divider>-->
     <div style="text-align: center"><h2>最新的竞赛</h2></div>
-    <el-carousel :interval="4000" :autoplay="false" type="card" height="200px" @change="cardChange">
-      <el-carousel-item>
-        <el-card  :class="card1" >
-          <div slot="header" class="clearfix">
-            <span>{{latestComp[0].compName}}</span>
-            <el-button style="float: right; padding: 3px 0" type="text" @click="goComptitionDetail(1)">详情</el-button>
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛类型：' + latestComp[0].CompTypeName }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛状态：' + latestComp[0].CompStateName }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'开始时间：' + latestComp[0].obStartTIme.toString().substring(0,10) + ' ' +latestComp[0].obStartTIme.toString().substring(11,19)  }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'结束时间：' + latestComp[0].obEndTime.toString().substring(0,10) + ' ' +latestComp[0].obEndTime.toString().substring(11,19)  }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛描述：' + latestComp[0].compIntro }}
-          </div>
-        </el-card>
-      </el-carousel-item >
-      <el-carousel-item>
-        <el-card :class="card2" >
-          <div slot="header" class="clearfix">
-            <span>{{latestComp[1].compName}}</span>
-            <el-button style="float: right; padding: 3px 0" @click="goComptitionDetail(2)" type="text">详情</el-button>
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛类型：' + latestComp[1].CompTypeName }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛状态：' + latestComp[1].CompStateName }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'开始时间：' + latestComp[1].obStartTIme.toString().substring(0,10) + ' ' +latestComp[1].obStartTIme.toString().substring(11,19)  }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'结束时间：' + latestComp[1].obEndTime.toString().substring(0,10) + ' ' +latestComp[1].obEndTime.toString().substring(11,19)  }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛描述：' + latestComp[1].compIntro }}
-          </div>
-        </el-card>
-      </el-carousel-item>
-      <el-carousel-item>
-        <el-card :class="card3">
-          <div slot="header" class="clearfix">
-            <span>{{latestComp[2].compName}}</span>
-            <el-button style="float: right; padding: 3px 0"  @click="goComptitionDetail(3)" type="text">详情</el-button>
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛类型：' + latestComp[2].CompTypeName }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛状态：' + latestComp[2].CompStateName }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'开始时间：' + latestComp[2].obStartTIme.toString().substring(0,10) + ' ' +latestComp[2].obStartTIme.toString().substring(11,19)  }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'结束时间：' + latestComp[2].obEndTime.toString().substring(0,10) + ' ' +latestComp[2].obEndTime.toString().substring(11,19)  }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛描述：' + latestComp[2].compIntro }}
-          </div>
-        </el-card>
-      </el-carousel-item>
-      <el-carousel-item>
-        <el-card :class="card4">
-          <div slot="header" class="clearfix">
-            <span>{{latestComp[3].compName}}</span>
-            <el-button style="float: right; padding: 3px 0"  @click="goComptitionDetail(4)" type="text">详情</el-button>
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛类型：' + latestComp[3].CompTypeName }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛状态：' + latestComp[3].CompStateName }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'开始时间：' + latestComp[3].obStartTIme.toString().substring(0,10) + ' ' +latestComp[3].obStartTIme.toString().substring(11,19)  }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'结束时间：' + latestComp[3].obEndTime.toString().substring(0,10) + ' ' +latestComp[3].obEndTime.toString().substring(11,19)  }}
-          </div>
-          <div class="text item" style="font-size: 12px">
-            {{'竞赛描述：' + latestComp[3].compIntro }}
-          </div>
-        </el-card>
-      </el-carousel-item>
-    </el-carousel>
-    <el-divider></el-divider>
-<!--    <div>-->
-<!--      <div id="chart_example">-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--        <el-row :gutter="20" style="color: white;line-height: 10px;">-->
-<!--              <el-col :span="12">-->
-<!--                <div  style=" background: #99a9bf;">-->
-<!--                  <i class="el-icon-s-custom"></i>系统使用人数：-->
-<!--                  <p>{{personNum}}</p>-->
-<!--                </div>-->
-<!--              </el-col>-->
-<!--              <el-col :span="12" >-->
-<!--                <div  style=" background: #99a9bf;">-->
-<!--                  <i class="el-icon-star-off"></i>竞赛总数：-->
-<!--                  <p>{{CompNum}}</p>-->
-<!--                </div>-->
-<!--              </el-col>-->
-<!--        </el-row>-->
+    <div style="height:200px;margin-bottom: 30px">
+      <mt-swipe>
+        <template v-for="(item,index) in latestComp">
+          <mt-swipe-item :key="`user${index}`">
+            <div @click="goComptitionDetail(index)" style="background: #bfbfbf">
+              <div slot="header" class="clearfix">
+                <h3>{{item.compName}}</h3>
+              </div>
+              <div class="text item" style="font-size: 12px">
+                {{'竞赛类型：' + item.CompTypeName }}
+              </div>
+              <div class="text item" style="font-size: 12px">
+                {{'竞赛状态：' + item.CompStateName }}
+              </div>
+              <div class="text item" style="font-size: 12px">
+                {{'开始时间：' + item.obStartTIme.toString().substring(0,10) + ' ' +item.obStartTIme.toString().substring(11,19)  }}
+              </div>
+              <div class="text item" style="font-size: 12px">
+                {{'结束时间：' + item.obEndTime.toString().substring(0,10) + ' ' +item.obEndTime.toString().substring(11,19)  }}
+              </div>
+              <div class="text item" style="font-size: 12px">
+                {{'竞赛描述：' + item.compIntro }}
+              </div>
+            </div>
+          </mt-swipe-item>
+        </template>
+      </mt-swipe>
+    </div>
+    <div style="margin-bottom: 30px">
+      <div id="chart_example" :style="{width:width}">
+      </div>
+    </div>
     <Footer/>
   </div>
 
@@ -164,6 +91,13 @@
       components:{Footer,Search},
       data(){
         return{
+          imgList:[
+            require("@/pictures/acm.jpg"),
+            require("@/pictures/BPO.jpg"),
+            require("@/pictures/dzsj.jpg"),
+            require("@/pictures/immc.jpg"),
+          ],
+          width:window.innerWidth,
           search:'',
           personNum:0,
           teamNum:0,
@@ -217,7 +151,6 @@
           this.$router.push('/competition/allStart');
         },
         goComptitionDetail(index){
-          index=index-1
           this.$router.push({name:'detail',params:{CompId:this.latestComp[index].CompId
               ,compStateName:this.latestComp[index].CompStateName,isHome:'1'}})
         },
@@ -266,44 +199,47 @@
             CompName.push(this.CompList[compList].CompName)
             CompNumber.push(this.CompList[compList].Sum)
           }
-
-          // let this_ = this;
-          // let myChart = echarts.init(document.getElementById('chart_example'));
-          // let option = {
-          //   title: { text: '各类竞赛数量统计' },
-          //   color: ['#f44'],
-          //   tooltip : {
-          //     trigger: 'axis',
-          //     axisPointer : {
-          //       type : 'shadow'
-          //     }
-          //   },
-          //   xAxis : [
-          //     {
-          //       type : 'category',
-          //       data : CompName,
-          //       axisTick: {
-          //         alignWithLabel: true
-          //       }
-          //     }
-          //   ],
-          //   yAxis : [
-          //     {
-          //       type : 'value'
-          //     }
-          //   ],
-          //   series : [
-          //     {
-          //       name:'数量',
-          //       type:'bar',
-          //       barWidth: '60%',
-          //       data:CompNumber,
-          //     }
-          //   ]
-          // };
-          // myChart.setOption(option);
-          // //建议加上以下这一行代码，不加的效果图如下（当浏览器窗口缩小的时候）。超过了div的界限（红色边框）
-          // window.addEventListener('resize',function() {myChart.resize()});
+          console.log(CompName)
+          let this_ = this;
+          let myChart = echarts.init(document.getElementById('chart_example'));
+          let option = {
+            title: { text: '各类竞赛数量统计' },
+            color: ['#f44'],
+            tooltip : {
+              trigger: 'axis',
+              axisPointer : {
+                type : 'shadow'
+              }
+            },
+            xAxis : [
+              {
+                type : 'category',
+                data : CompName,
+                axisLabel:{
+                  interval: 0
+                },
+                axisTick: {
+                  alignWithLabel: true
+                }
+              }
+            ],
+            yAxis : [
+              {
+                type : 'value',
+              }
+            ],
+            series : [
+              {
+                name:'数量',
+                type:'bar',
+                barWidth: '60%',
+                data:CompNumber,
+              }
+            ]
+          };
+          myChart.setOption(option);
+          //建议加上以下这一行代码，不加的效果图如下（当浏览器窗口缩小的时候）。超过了div的界限（红色边框）
+          window.addEventListener('resize',function() {myChart.resize()});
         }).catch((err)=>{
           console.log(err)
         })
@@ -346,6 +282,5 @@
     top:0; /* 距离窗口顶部距离 */
     left:0; /* 距离窗口左边的距离 */
     width:100%; /* 宽度设置为100% */
-    z-index:99; /* 层叠顺序，数值越大就越高。页面滚动的时候就不会被其他内容所遮挡。 */
   }
 </style>

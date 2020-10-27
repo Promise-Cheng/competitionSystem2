@@ -19,8 +19,8 @@
       <br/>
     </div>
     <div style="margin-top: 20px">
-      <mt-cell title="修改信息" is-link to="/myself/myDetail"></mt-cell>
-      <mt-cell title="添加教师账号" is-link to="/register_tea"></mt-cell>
+      <mt-cell title="修改信息" is-link to="/teacher/editInfo"></mt-cell>
+      <mt-cell v-if="formLabelAlign.teaId ===1001" title="添加教师账号" is-link to="/register_tea"></mt-cell>
       <mt-cell title="关于" is-link to="/myself/about"></mt-cell>
     </div>
     <div @click="login">
@@ -48,6 +48,7 @@
     },
     mounted() {
       this.formLabelAlign = this.$store.state.user.info
+      console.log(this.formLabelAlign)
     },
     computed: {
       ...mapState(['user'])

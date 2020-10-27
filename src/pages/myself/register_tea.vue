@@ -4,7 +4,7 @@
       <mt-button icon="back" slot="left" @click="back">返回</mt-button>
     </mt-header>
     <mt-field label="学工号" placeholder="请输入学工号" v-model="teaId"></mt-field>
-    <mt-field label="密码" placeholder="请输入密码" v-model="password"></mt-field>
+    <mt-field label="密码" type="password" placeholder="请输入密码" v-model="password"></mt-field>
     <mt-field label="姓名" placeholder="请输入姓名" v-model="teaName"></mt-field>
     <mt-field label="手机号" placeholder="请输入手机号" type="tel" v-model="phoneNum"></mt-field>
     <div @click="chooseCompType">
