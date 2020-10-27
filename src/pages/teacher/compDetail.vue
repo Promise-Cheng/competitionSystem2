@@ -4,38 +4,16 @@
       <mt-button icon="back" slot="left" @click="back">返回</mt-button>
     </mt-header>
     <mt-loadmore :top-method="loadTop" ref="loadmore" @top-status-change="handleTopChange">
-    <el-divider></el-divider>
-    <el-form label-position="left" inline class="demo-table-expand">
-      <el-form-item >
-        竞赛名称:{{ details.compName }}
-      </el-form-item>
-      <br/>
-      <el-form-item >
-        竞赛类型:{{ details.CompName }}
-      </el-form-item>
-      <br/>
-      <el-form-item >
-        开始时间:{{ details.startTime}}
-      </el-form-item>
-      <br/>
-      <el-form-item >
-        结束时间:{{ details.endTime}}
-      </el-form-item>
-      <br/>
-      <el-form-item >
-        人数限制:{{ details.personNum }}
-      </el-form-item>
-      <br/>
-      <el-form-item >
-        指导老师:{{details.teacher }}
-      </el-form-item>
-      <br/>
-      <el-form-item >
-        竞赛描述:{{ details.compIntro}}
-      </el-form-item>
-      <br/>
-    </el-form>
-
+      <div style="margin-bottom: 30px">
+        <mt-cell title="竞赛名称:" :value="details.compName"></mt-cell>
+        <mt-cell title="竞赛类型:" :value="details.CompName"></mt-cell>
+        <mt-cell title="开始时间:" :value="details.startTime"></mt-cell>
+        <mt-cell title="结束时间:" :value="details.endTime"></mt-cell>
+        <mt-cell title="人数限制:" :value="details.personNum"></mt-cell>
+        <mt-cell title="指导老师:" :value="details.teacher"></mt-cell>
+        <mt-cell title="竞赛描述:" :value="details.compIntro"></mt-cell>
+        <mt-cell title="竞赛状态:" :value="$route.params.compStateName"></mt-cell>
+      </div>
     <div v-if="!isManager">
       <el-button @click="back" type="primary" style="width: 60%">返回</el-button>
     </div>
@@ -105,6 +83,9 @@
 </script>
 
 <style scoped>
+  .mint-cell{
+    text-align: left;
+  }
   .nav{
     position:absolute; /* 绝对定位，fixed是相对于浏览器窗口定位。 */
     top:20px; /* 距离窗口顶部距离 */

@@ -31,7 +31,6 @@ export default {
     api.common[urlString](params).then(res => {
       context.commit('init', {key: 'user', value: res[dataString]});
       context.commit('init', {key: 'isLoaded', value: true});
-      console.log(context.getters.isLoaded)
     }).catch(err=>{
       context.commit('init', {key: 'user', value: null});
       context.commit('init', {key: 'isLoaded', value: false});
