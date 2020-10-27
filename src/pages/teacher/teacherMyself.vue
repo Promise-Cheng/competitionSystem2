@@ -39,26 +39,26 @@
     components: {Footer},
     data() {
       return {
-        formLabelAlign: {},
         version: '1.2',
         introduce: '初次开发系统，bug会有许多，如遇未知错误，请联系我们进行反馈，我们将尽快修复或优化相关细节，感谢您的支持',
         QQ: '12345678',
         wechat: '12345678'
       }
     },
+
     mounted() {
-      this.formLabelAlign = this.$store.state.user.info
-      console.log(this.formLabelAlign)
     },
     computed: {
-      ...mapState(['user'])
+      ...mapState(['user']),
+      formLabelAlign(){
+        return this.$store.state.user;
+      }
     },
     methods: {
       login() {
         if (this.button1 === '登录')
           this.$router.push('/login');
         else {
-          this.$store.state.user = {};
           sessionStorage.clear()
           // this.button1="登录"
           // this.button2='注册'

@@ -88,8 +88,9 @@
               if (res){
                 if(res.data.result==='success'){
                   this.Loading = false;
-                  sessionStorage.setItem('ms_username',res.data.data)
-                  this.$store.state.user={user:this.stuId,info:res.data.data}
+                  sessionStorage.setItem('ms_username',this.stuId);
+                  sessionStorage.setItem('ms_password',this.password);
+                  sessionStorage.setItem('userType', '1');
                   this.$message({
                     message: '登录成功',
                     type: 'success'

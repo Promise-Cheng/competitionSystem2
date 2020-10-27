@@ -52,12 +52,12 @@
           }
       },
       mounted() {
-        this.stuNum =this.$store.state.user.info.stuNum
-        this.stuName =this.$store.state.user.info.stuName
-        this.class_ =this.$store.state.user.info.class
-        this.QQ =this.$store.state.user.info.QQ
-        this.email =this.$store.state.user.info.email
-        this.phone =this.$store.state.user.info.phoneNum
+        this.stuNum =this.$store.state.user.stuNum
+        this.stuName =this.$store.state.user.stuName
+        this.class_ =this.$store.state.user.class
+        this.QQ =this.$store.state.user.QQ
+        this.email =this.$store.state.user.email
+        this.phone =this.$store.state.user.phoneNum
       },
       methods:{
           back(){
@@ -75,13 +75,13 @@
               this.$message.error('请填写完整的信息');
               return;
           }
-          if(this.$store.state.user.info.stuNum == this.stuNum &&
-                this.$store.state.user.info.stuName  == this.stuName &&
-                this.$store.state.user.info.password  == this.password &&
-                this.$store.state.user.info.class  ==this.class_ &&
-                this.$store.state.user.info.QQ   == this.QQ &&
-                this.$store.state.user.info.email == this.email &&
-                this.$store.state.user.info.phoneNum==this.phone){
+          if(this.$store.state.user.stuNum == this.stuNum &&
+                this.$store.state.user.stuName  == this.stuName &&
+                this.$store.state.user.password  == this.password &&
+                this.$store.state.user.class  ==this.class_ &&
+                this.$store.state.user.QQ   == this.QQ &&
+                this.$store.state.user.email == this.email &&
+                this.$store.state.user.phoneNum==this.phone){
                 this.$message.error('未做任何修改，');
                 return;
                 }
@@ -105,13 +105,13 @@
                   message: '修改成功',
                   type: 'success'
                 });
-                this.$store.state.user.info.stuNum = this.stuNum
-                this.$store.state.user.info.stuName  = this.stuName
-                this.$store.state.user.info.password  = this.password
-                this.$store.state.user.info.class  =this.class_
-                this.$store.state.user.info.QQ   = this.QQ
-                this.$store.state.user.info.email = this.email
-                this.$store.state.user.info.phoneNum =this.phone
+                this.$store.state.user.stuNum = this.stuNum
+                this.$store.state.user.stuName  = this.stuName
+                this.$store.state.user.password  = this.password
+                this.$store.state.user.class  =this.class_
+                this.$store.state.user.QQ   = this.QQ
+                this.$store.state.user.email = this.email
+                this.$store.state.user.phoneNum =this.phone
                 this.$router.push('/myself');
               }
             })

@@ -107,8 +107,6 @@
             for(const index in this.$refs.topicTable.selection){
               teamCompIds.push(this.$refs.topicTable.selection[index].teamCompId)
             }
-            console.log(teamCompIds)
-            console.log(this.$refs.topicTable.selection)
           },
           back(){
              this.$router.replace({name:'manageTeam',params:{CompId:this.$store.state.compInfo.compId,manage:'1',

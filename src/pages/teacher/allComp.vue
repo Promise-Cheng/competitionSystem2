@@ -135,14 +135,10 @@
       },
       mounted() {
           //获取屏幕宽高
-          //console.log(document.documentElement.clientWidth,document.documentElement.clientHeight);
         if(this.$route.params.selected){
           this.selected=this.$route.params.selected;
         }
         this.getData()
-        // this.num=1;
-        // console.log(this.num);
-        // this.$set(this,'num',1)
       },
       watch: {
         selected: function (val, oldVal) {

@@ -100,10 +100,8 @@
         }
       },
       mounted(){
-          console.log(this.isEnd)
           this.$axios.get('/teacher/getPassedteam',{params:{CompId:this.$route.params.CompId}}).then((res)=>{
             this.tableData=res.data.data
-            console.log(this.tableData)
           }).catch((err)=>{
             console.log(err)
           })

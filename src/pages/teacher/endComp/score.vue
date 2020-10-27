@@ -106,7 +106,6 @@
           })
         },
         back(){
-          console.log(this.$store.state.compInfo.compId)
           this.$router.replace({name:'makeScore',params:{CompId:this.$store.state.compInfo.compId}})
         }
       },

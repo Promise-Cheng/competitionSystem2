@@ -51,8 +51,7 @@
       computed:{
       },
       mounted() {
-
-        const formLabelAlign =this.$store.state.user.info
+        const formLabelAlign =this.$store.state.user
         this.teaName=formLabelAlign.teaName
         this.teaId=formLabelAlign.teaId
         this.phoneNum=formLabelAlign.phoneNum
@@ -60,7 +59,7 @@
         this.$axios.get('/teacher/CompTypes').then((res)=>{
           this.compTypes=res.data.data
           for(const index in this.compTypes){
-            if(this.$store.state.user.info.CompTypeid===this.compTypes[index].CompTypeid){
+            if(this.$store.state.user.CompTypeid===this.compTypes[index].CompTypeid){
               this.CompTypeName=this.compTypes[index].CompName
               break;
             }
@@ -81,9 +80,9 @@
             this.$message.error('请填写完整的信息');
             return;
         }
-        if(this.$store.state.user.info.phoneNum==this.phoneNum&&
-          this.$store.state.user.info.teaName==this.teaName &&
-          this.$store.state.user.info.password==this.password){
+        if(this.$store.state.user.phoneNum==this.phoneNum&&
+          this.$store.state.user.teaName==this.teaName &&
+          this.$store.state.user.password==this.password){
             this.$message.error('未做任何修改，');
                 return;
           }
@@ -91,9 +90,9 @@
           params.append('phoneNum',this.phoneNum)
           params.append('teaName',this.teaName)
           params.append('password',this.password)
-          this.$store.state.user.info.phoneNum=this.phoneNum
-          this.$store.state.user.info.teaName=this.teaName
-          this.$store.state.user.info.password=this.password
+          this.$store.state.user.phoneNum=this.phoneNum
+          this.$store.state.user.teaName=this.teaName
+          this.$store.state.user.password=this.password
           this.$axios.post('/teacher/manageInfo',params).then((res)=>{
             if(res.data.result==='success')
               this.$message({

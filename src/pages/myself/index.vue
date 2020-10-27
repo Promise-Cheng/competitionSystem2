@@ -46,7 +46,6 @@
         index: '1',
         search: '',
         tableData: [],
-        formLabelAlign: {},
         version: '1.2',
         introduce: '初次开发系统，bug会有许多，如遇未知错误，请联系我们进行反馈，我们将尽快修复或优化相关细节，感谢您的支持',
         QQ: '12345678',
@@ -57,14 +56,16 @@
       if (!this.$store.state.user) {
         this.isShow = false
       } else {
-        this.formLabelAlign = this.$store.state.user.info
         this.button1 = "退出登录"
         this.button2 = '修改信息'
         this.isShow = true
       }
     },
     computed: {
-      ...mapState(['user'])
+      ...mapState(['user']),
+      formLabelAlign() {
+        return this.$store.state.user
+      }
     },
     methods: {
       login() {
@@ -73,9 +74,7 @@
         else {
           this.$store.state.user = {};
           sessionStorage.clear();
-          // this.button1="登录"
-          // this.button2='注册'
-          // this.isShow=false
+          this.$store.dispatch('clearSystems');
           this.$router.push('/login');
         }
       },

@@ -44,8 +44,6 @@
           this.select=this.$route.path.substring(1,this.$route.path.length)
         }
         this.selected=this.select
-        // console.log(this.selected);
-
       },
       watch:{
         selected: function (val, oldVal) {
@@ -56,7 +54,6 @@
                  this.$router.push('/home');
                  break;
                case 'competition':
-                 // console.log('competition')
                  if(this.index===0||oldVal==='team')
                     this.$router.push("/competition/start");
                  else

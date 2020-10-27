@@ -16,7 +16,7 @@
     <br/>
     <br/>
     <br/>
-    <mt-cell-swipe 
+    <mt-cell-swipe
         title="账号管理"
         to="/manager/userinfo/student"  is-link></mt-cell-swipe>
     <!-- <mt-cell-swipe
@@ -31,7 +31,7 @@
         </div>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -49,7 +49,6 @@
     },
     methods:{
         manageUser(){
-            console.log("aaaa")
             this.$router.push('')
         }
     },

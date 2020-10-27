@@ -32,7 +32,6 @@
              params.append('password',this.newPassword1)
              this.$axios.post('/users/password',params)
                .then((res)=>{
-                 console.log(1)
                this.$router.replace('/login');
              }).catch((err)=>{
                console.log(err)

@@ -40,7 +40,6 @@
             })
           },
           back(){
-            console.log(this.$store.state.compInfo.compId)
             this.$router.replace({name:'perRank',params:{CompId:this.$route.params.CompId}})
           }
       }

@@ -5,6 +5,7 @@ import CompSearch from '../components/compSearch'
 import TeamSearch from '../components/teamSearch'
 import HomeNews from '../components/news'
 import CompIntroduce from '../components/compIntroduce'
+import store from '@/store'
 
 /* stuMyself */
 import Login from '../pages/myself/login'
@@ -23,7 +24,7 @@ import QueryResult from '../pages/myself/queryResult'
 import EditPassword from '../pages/myself/editPassword'
 import About from "@/pages/myself/About";
 
- /* stuCompetition */
+/* stuCompetition */
 import Start from '../pages/competition/start'
 import Ing from '../pages/competition/ing'
 import End from '../pages/competition/end'
@@ -76,54 +77,54 @@ Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 
- const router =new Router({
+const router = new Router({
   routes: [
     {
-      path:'/test',
-      name:'test',
-      component:Test
+      path: '/test',
+      name: 'test',
+      component: Test
     },
 
     /*
     学生端
      */
     {
-      path:'/',
-      name:'index',
-      component:Login
+      path: '/',
+      name: 'index',
+      component: Login
     },
     {
-      path:'/home/homeNews',
-      name:'homeNews',
-      component:HomeNews
+      path: '/home/homeNews',
+      name: 'homeNews',
+      component: HomeNews
     },
     {
-      path:'/myself/about',
-      name:'About',
-      component:About
+      path: '/myself/about',
+      name: 'About',
+      component: About
     },
     {
-      path:'/home/compIntroduce',
-      name:'compIntroduce',
-      component:CompIntroduce
+      path: '/home/compIntroduce',
+      name: 'compIntroduce',
+      component: CompIntroduce
     },
     {
-      path:'/home',
-      name:'home',
-      component:Home,
+      path: '/home',
+      name: 'home',
+      component: Home,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/home/compSearch',
-      name:'compSearch',
-      component:CompSearch
+      path: '/home/compSearch',
+      name: 'compSearch',
+      component: CompSearch
     },
     {
-      path:'/home/teamSearch',
-      name:'teamSearch',
-      component:TeamSearch
+      path: '/home/teamSearch',
+      name: 'teamSearch',
+      component: TeamSearch
     },
     {
       path: '/myself',
@@ -193,96 +194,95 @@ Router.prototype.push = function push(location) {
       component: QueryResult
     },
     {
-      path:'/login',
-      name:'login',
-      component:Login,
-      beforeEnter:(to,from,next)=>{
-        console.log(to);
+      path: '/login',
+      name: 'login',
+      component: Login,
+      beforeEnter: (to, from, next) => {
         next();
       }
     },
     {
-      path:'/register',
-      name:'register',
-      component:Register
+      path: '/register',
+      name: 'register',
+      component: Register
     },
     {
-      path:'/myself/edit',
-      name:'edit',
-      component:Edit
+      path: '/myself/edit',
+      name: 'edit',
+      component: Edit
     },
     {
-      path:'/competition/allStart',
-      name:'start',
-      component:Start,
+      path: '/competition/allStart',
+      name: 'start',
+      component: Start,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/competition/ing',
-      name:'ing',
-      component:Ing,
+      path: '/competition/ing',
+      name: 'ing',
+      component: Ing,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/competition/end',
-      name:'end',
-      component:End,
+      path: '/competition/end',
+      name: 'end',
+      component: End,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/competition/detail',
-      name:'detail',
-      component:Detail
+      path: '/competition/detail',
+      name: 'detail',
+      component: Detail
     },
     {
-      path:'/competition',
-      name:'allComp',
-      component:allComp,
+      path: '/competition',
+      name: 'allComp',
+      component: allComp,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/competition/signUp',
-      name:'signUp',
-      component:SignUp
+      path: '/competition/signUp',
+      name: 'signUp',
+      component: SignUp
     },
     {
-      path:'/team/myteam',
-      name:'teamIndex',
-      component:TeamIndex,
+      path: '/team/myteam',
+      name: 'teamIndex',
+      component: TeamIndex,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/team',
-      name:'allTeam',
-      component:AllTeam,
+      path: '/team',
+      name: 'allTeam',
+      component: AllTeam,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/team/teamDetail',
-      name:'teamDetail',
-      component:TeamDetail
+      path: '/team/teamDetail',
+      name: 'teamDetail',
+      component: TeamDetail
     },
     {
-      path:'/team/newTeam',
-      name:'newTeam',
-      component:NewTeam
+      path: '/team/newTeam',
+      name: 'newTeam',
+      component: NewTeam
     },
     {
-      path:'/team/myTeamDetail',
-      name:'myTeamDetail',
-      component:MyTeamDetail,
+      path: '/team/myTeamDetail',
+      name: 'myTeamDetail',
+      component: MyTeamDetail,
       meta: {
         keepAlive: true // 不需要缓存
       }
@@ -291,197 +291,198 @@ Router.prototype.push = function push(location) {
     教师端
      */
     {
-      path:'/teacher/checkTeam',
-      name:'checkTeam',
-      component:CheckTeam,
+      path: '/teacher/checkTeam',
+      name: 'checkTeam',
+      component: CheckTeam,
     },
     {
-      path:'/teacher/checkTeamDetail',
-      name:'checkTeamDetail',
-      component:CheckTeamDetail,
+      path: '/teacher/checkTeamDetail',
+      name: 'checkTeamDetail',
+      component: CheckTeamDetail,
     },
     {
-      path:'/login_tea',
-      name:'teacherLogin',
-      component:TeacherLogin,
+      path: '/login_tea',
+      name: 'teacherLogin',
+      component: TeacherLogin,
     },
     {
-      path:'/register_tea',
-      name:'teacherRegister',
-      component:TeacherRegister,
+      path: '/register_tea',
+      name: 'teacherRegister',
+      component: TeacherRegister,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/teacher/home',
-      name:'teacherHome',
-      component:TeacherHome,
+      path: '/teacher/home',
+      name: 'teacherHome',
+      component: TeacherHome,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/teacher/competition',
-      name:'teacherComp',
-      component:TeacherComp,
-      meta: {
-        keepAlive: true // 不需要缓存
-      }
-
-    },
-    {
-      path:'/teacher/manage',
-      name:'teacherManage',
-      component:TeacherManage,
-      meta: {
-        keepAlive: true // 不需要缓存
-      }
-    },
-    {
-      path:'/teacher/myself',
-      name:'teacherMyself',
-      component:TeacherMyself,
-      meta: {
-        keepAlive: true // 不需要缓存
-      }
-    },
-    {
-      path:'/teacher/compSearch',
-      name:'compSearch1',
-      component:CompSearch1
-    },
-    {
-      path:'/teacher/pubComp',
-      name:'pubComp',
-      component:PubComp
-    },
-    {
-      path:'/teacher/compDetail',
-      name:'compDetail',
-      component:CompDetail
-    },
-    {
-      path:'/teacher/manageTeam',
-      name:'manageTeam',
-      component:ManageTeam,
-      meta: {
-        keepAlive: true // 不需要缓存
-      }
-    },
-    {
-      path:'/teacher/manageTeamDetail',
-      name:'manageTeamDetail',
-      component:ManageTeamDetail
-    },
-    {
-      path:'/teacher/informationEdit',
-      name:'informationEdit',
-      component:InformationEdit
-    },
-    {
-      path:'/teacher/titleEdit',
-      name:'titleEdit',
-      component:TitleEdit
-    },
-    {
-      path:'/teacher/personnelManage',
-      name:'personnelManage',
-      component:PersonnelManage,
-      meta: {
-        keepAlive: true // 不需要缓存
-      }
-    },
-    {
-      path:'/teacher/makeScore',
-      name:'makeScore',
-      component:MakeScore
-    },
-    {
-      path:'/teacher/score',
-      name:'score',
-      component:Score,
-      meta: {
-        keepAlive: true // 不需要缓存
-      }
-    },
-    {
-      path:'/teacher/editInfo',
-      name:'editInfo',
-      component:EditInfo
-    },
-    {
-      path:'/teacher/teamApplyment',
-      name:'teamApplyment',
-      component:TeamApplyment,
+      path: '/teacher/competition',
+      name: 'teacherComp',
+      component: TeacherComp,
       meta: {
         keepAlive: true // 不需要缓存
       }
 
     },
     {
-      path:'/teacher/perRank',
-      name:'perRank',
-      component:PerRank,
+      path: '/teacher/manage',
+      name: 'teacherManage',
+      component: TeacherManage,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/teacher/addCompList',
-      name:'addCompList',
-      component:AddCompList
+      path: '/teacher/myself',
+      name: 'teacherMyself',
+      component: TeacherMyself,
+      meta: {
+        keepAlive: true // 不需要缓存
+      }
     },
     {
-      path:'/teacher/editScore',
-      name:'editScore',
-      component:EditScore
+      path: '/teacher/compSearch',
+      name: 'compSearch1',
+      component: CompSearch1
+    },
+    {
+      path: '/teacher/pubComp',
+      name: 'pubComp',
+      component: PubComp
+    },
+    {
+      path: '/teacher/compDetail',
+      name: 'compDetail',
+      component: CompDetail
+    },
+    {
+      path: '/teacher/manageTeam',
+      name: 'manageTeam',
+      component: ManageTeam,
+      meta: {
+        keepAlive: true // 不需要缓存
+      }
+    },
+    {
+      path: '/teacher/manageTeamDetail',
+      name: 'manageTeamDetail',
+      component: ManageTeamDetail
+    },
+    {
+      path: '/teacher/informationEdit',
+      name: 'informationEdit',
+      component: InformationEdit
+    },
+    {
+      path: '/teacher/titleEdit',
+      name: 'titleEdit',
+      component: TitleEdit
+    },
+    {
+      path: '/teacher/personnelManage',
+      name: 'personnelManage',
+      component: PersonnelManage,
+      meta: {
+        keepAlive: true // 不需要缓存
+      }
+    },
+    {
+      path: '/teacher/makeScore',
+      name: 'makeScore',
+      component: MakeScore
+    },
+    {
+      path: '/teacher/score',
+      name: 'score',
+      component: Score,
+      meta: {
+        keepAlive: true // 不需要缓存
+      }
+    },
+    {
+      path: '/teacher/editInfo',
+      name: 'editInfo',
+      component: EditInfo
+    },
+    {
+      path: '/teacher/teamApplyment',
+      name: 'teamApplyment',
+      component: TeamApplyment,
+      meta: {
+        keepAlive: true // 不需要缓存
+      }
+
+    },
+    {
+      path: '/teacher/perRank',
+      name: 'perRank',
+      component: PerRank,
+      meta: {
+        keepAlive: true // 不需要缓存
+      }
+    },
+    {
+      path: '/teacher/addCompList',
+      name: 'addCompList',
+      component: AddCompList
+    },
+    {
+      path: '/teacher/editScore',
+      name: 'editScore',
+      component: EditScore
     },
     /* 管理员端 */
     {
-      path:'/manager/index',
-      name:'managerIndex',
-      component:ManagerIndex
+      path: '/manager/index',
+      name: 'managerIndex',
+      component: ManagerIndex
     },
     {
-      path:'/manager/userinfo/student',
-      name:'UserInfostudent',
-      component:userInfo,
+      path: '/manager/userinfo/student',
+      name: 'UserInfostudent',
+      component: userInfo,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/manager/userinfo/teacher',
-      name:'UserInfoteacher',
-      component:userInfo,
+      path: '/manager/userinfo/teacher',
+      name: 'UserInfoteacher',
+      component: userInfo,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
     {
-      path:'/manager/userinfo/manager',
-      name:'UserInfomanager',
-      component:userInfo,
+      path: '/manager/userinfo/manager',
+      name: 'UserInfomanager',
+      component: userInfo,
       meta: {
         keepAlive: true // 不需要缓存
       }
     },
-    ],
+  ],
 });
 
- router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   const role = sessionStorage.getItem('ms_username');
-  if(!role && to.path !== '/login' && to.path !== '/login_tea' && to.path!=='/register'  && to.path!=='/register_tea' ){
-    let index = to.path.lastIndexOf('teacher')
-    if(index === -1)
-        next('/login');
-    else{
+  let index = to.path.lastIndexOf('teacher')
+  if (!role && to.path !== '/login' && to.path !== '/login_tea' && to.path !== '/register' && to.path !== '/register_tea') {
+    if (index === -1)
+      next('/login');
+    else {
       next('/login_tea');
     }
-  }else{
-          next();
-      }
+  } else {
+    store.dispatch('getUserInfo');
+    next();
+  }
 })
 
 export default router

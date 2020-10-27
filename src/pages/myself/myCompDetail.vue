@@ -68,7 +68,7 @@
         else if(this.$route.params.CompState==='1')
           this.isStart=true
         else if(this.$route.params.CompState==='2'){
-            console.log(2222)
+
         }
         else  this.isIng=true
         this.$axios.get('/Competitions/detail',{params:{CompId:this.$route.params.CompId}}).then((res)=>{

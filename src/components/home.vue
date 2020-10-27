@@ -190,7 +190,6 @@
         let CompNumber=[]
         this.getLatestComp()
         this.$axios.get('/home').then((res)=>{
-          // console.log(res.data.data)
           this.CompList=res.data.data.CompList
           this.CompNum=res.data.data.CompNum
           this.teamNum=res.data.data.teamNum
@@ -199,7 +198,6 @@
             CompName.push(this.CompList[compList].CompName)
             CompNumber.push(this.CompList[compList].Sum)
           }
-          console.log(CompName)
           let this_ = this;
           let myChart = echarts.init(document.getElementById('chart_example'));
           let option = {

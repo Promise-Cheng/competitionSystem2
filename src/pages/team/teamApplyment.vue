@@ -49,7 +49,6 @@
       mounted() {
         this.$axios.get('/users/teamApplyment',{params:{teamId:this.$route.params.teamId}}).then((res)=>{
           this.tableData=res.data.data
-          console.log(1)
         }).catch((err)=>{
           console.log(err);
         })
@@ -81,7 +80,7 @@
                 type: 'success',
                 message: '操作成功!'
               });
-              
+
               this.getData()
             }
             else if(res.data.result==='null'){
@@ -91,7 +90,7 @@
           }).catch((err)=>{
             console.log(err)
           })
-          
+
         }
       },
 

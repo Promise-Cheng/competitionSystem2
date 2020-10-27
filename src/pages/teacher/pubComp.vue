@@ -131,7 +131,7 @@
       }
     },
     mounted() {
-      this.compType = this.$store.state.user.info.CompName
+      this.compType = this.$store.state.user.CompName
       this.$axios.get('/teacher/CompTypes').then((res) => {
         this.compTypes = res.data.data
       }).catch((err) => {
@@ -201,8 +201,6 @@
             console.log(err)
           })
         } else {
-          // console.log(compType)
-          // return;
           params.append('compName', this.compName)
           params.append('CompTypeid', compType)
           params.append('startTime', this.startTime)

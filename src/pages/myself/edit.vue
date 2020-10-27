@@ -96,17 +96,17 @@
         }
       },
       mounted(){
-        this.stuNum =this.$store.state.user.info.stuNum
-        this.stuName =this.$store.state.user.info.stuName
-        this.password =this.$store.state.user.info.password
-        this.class_ =this.$store.state.user.info.class
-        this.QQ =this.$store.state.user.info.QQ
-        this.email =this.$store.state.user.info.email
-        this.phone =this.$store.state.user.info.phoneNum
+        this.stuNum =this.$store.state.user.stuNum
+        this.stuName =this.$store.state.user.stuName
+        this.password =this.$store.state.user.password
+        this.class_ =this.$store.state.user.class
+        this.QQ =this.$store.state.user.QQ
+        this.email =this.$store.state.user.email
+        this.phone =this.$store.state.user.phoneNum
       },
       methods:{
         register(){
-          
+
           if(!this.stuName || !this.password ||  !this.class_ ||  !this.QQ ||  !this.email ||  !this.phone || !this.stuNum){
               this.$message.error('不能修改为空值');
               return;
