@@ -10,7 +10,7 @@
       <mt-cell title="结束时间:" :value="details.endTime"></mt-cell>
       <mt-cell title="人数限制:" :value="details.personNum"></mt-cell>
       <mt-cell title="指导老师:" :value="details.teacher"></mt-cell>
-      <mt-cell title="竞赛描述:" :value="details.compIntro"></mt-cell>
+             <mt-field label="竞赛描述:" :value="details.compIntro" readonly type="textarea" rows="4"></mt-field>
       <mt-cell title="竞赛状态:" :value="$route.params.compStateName"></mt-cell>
     </div>
     <div v-if="!isSignUp">

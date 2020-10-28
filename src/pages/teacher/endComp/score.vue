@@ -15,8 +15,12 @@
         || data.PassState.toLowerCase().includes(search.toLowerCase()))"
     >
       <el-table-column
-        prop="workId"
-        label="作品ID"
+        prop="questionNum"
+        label="题号"
+        width="50%">
+      </el-table-column> <el-table-column
+        prop="questionName"
+        label="题名"
         width="65%">
       </el-table-column>
       <el-table-column
@@ -24,11 +28,10 @@
         label="作品名"
         width="65%">
       </el-table-column>
-
       <el-table-column
         prop="Score"
-        label="作品成绩"
-        width="80%">
+        label="成绩"
+        width="50%">
       </el-table-column>
       <el-table-column  width="100%">
         <template slot="header">
