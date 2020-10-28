@@ -11,7 +11,9 @@
       <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
       <!--      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
       <div slot="tip" class="el-upload-list__item-name">
-        <div v-for="(item,index) in this.files" :key="`user${index}`">{{item.name}}</div>
+        <div v-for="(item,index) in this.files" :key="`user${index}`">
+          <mt-cell :title="item.name"></mt-cell>
+        </div>
       </div>
     </el-upload>
   </div>
@@ -21,7 +23,25 @@
   import * as api from '@/api/api'
 
   export default {
-
+    name: "uploadFile",
+    props: {
+      workName: {
+        type: String,
+        default: '',
+      },
+      teamCompId: {
+        type: Number,
+        default: -1,
+      },
+      question: {
+        type: Number,
+        default: -1,
+      },
+      introduction: {
+        type: String,
+        default: '',
+      },
+    },
     data() {
       return {
         fileList: [],
@@ -55,10 +75,10 @@
         for (let index in this.files) {
           fileFormData.append('file', this.files[index]);//filename是键，file是值，就是要传的文件，test.zip是要传的文件名
         }
-        fileFormData.append('workName', 'test');
-        fileFormData.append('teamCompId', 1);
-        fileFormData.append('question', 1);
-        fileFormData.append('introduction', 'abc');
+        fileFormData.append('workName', this.workName);
+        fileFormData.append('teamCompId', this.teamCompId);
+        fileFormData.append('question', this.question);
+        fileFormData.append('introduction', this.introduction);
         let requestConfig = {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -75,7 +95,7 @@
                 duration: 1500,
               })
             } else {
-              this.$message.error(res.data.msg)
+              this.$message.error("上传失败！请重新操作")
             }
           })
       },

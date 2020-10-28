@@ -132,7 +132,16 @@ export const post = (url, ...params) => {
       })
   })
 }
-
+export const formDataPost = (url, ...params) => {
+  return axios({
+    method: "POST",
+    url: url,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    data:getPostParams(params),
+  });
+};
 export function getPostParams(params) {
   let keyArr = Object.keys(params[0]);
   let urlSearchParams = new URLSearchParams();
@@ -141,6 +150,7 @@ export function getPostParams(params) {
   })
   return urlSearchParams;
 }
+
 
 /**
  * get方法，对应get请求

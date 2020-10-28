@@ -1,7 +1,7 @@
 /**
  * api接口统一管理
  */
-import {get, post} from './axios'
+import {formDataPost, get, post} from './axios'
 
 export const common = {
   /**
@@ -20,8 +20,24 @@ export const common = {
   getHomeData: (params) => get('/home', params)
 }
 export const competition = {
+  /**
+   * 教师端查看竞赛题目
+   * @param params CompId
+   * @returns {Promise | Promise<unknown>}
+   */
   getQuestion: (params) => get('/teacher/Topics', params),
+  /**
+   * 学生端查看竞赛题目。
+   * @param params CompId
+   * @returns {Promise | Promise<unknown>}
+   */
   getStudentQuestion:(params) => get('/users/showMyTopic', params),
+  /**
+   * 重新评分，回到上一状态。
+   * @param params compStateID,CompId
+   * @returns {Promise | Promise<unknown>}
+   */
+  reScore:(params) => post('/teacher/ChangeCompStateMinus', params),
   listByStatus: (params) => get('/Competitions/show', params),
   getMyComp: (params) => get('/users/myComp', params),
   //修改
@@ -56,3 +72,16 @@ export const question = {
   downloadFile: (params) => get('teacher/TopicDetail', params),
 }
 
+export const work = {
+  /**
+   *
+   * @param params teamCompId:1//团队竞赛id
+   workName:xxx//作品名称
+   introduction:xxx//作品介绍
+   question:1//题目id
+   file:xxxx//文件流
+   * @returns {Promise | Promise<unknown>}
+   */
+  uploadWork: (params) => formDataPost('users/uploadWorks', params),
+
+}

@@ -64,13 +64,22 @@
         let tableData = this.tableData.filter(data => !this.search || data.questionNum.toLowerCase().includes(this.search.toLowerCase())
           || data.questionName.toLowerCase().includes(this.search.toLowerCase()))
         this.$router.push({
-          name: 'compSubjectDetail',
-          params: {
+          path: '/myself/compSubjectDetail',
+          query: {
             questionId: tableData[scope.$index].questionId,
             CompId: this.$route.params.CompId,
-            CompState: this.$route.params.CompState
+            CompState: this.$route.params.CompState,
+            teamCompId: tableData[scope.$index].teamCompId,
           }
         })
+        // this.$router.push({
+        //   name: 'compSubjectDetail',
+        //   params: {
+        //     questionId: tableData[scope.$index].questionId,
+        //     CompId: this.$route.params.CompId,
+        //     CompState: this.$route.params.CompState
+        //   }
+        // })
       },
       back() {
         this.$router.replace({

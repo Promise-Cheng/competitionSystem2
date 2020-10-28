@@ -67,7 +67,7 @@ import CheckTeamDetail from '../pages/teacher/teamDetail'
 
 import ManagerIndex from '../pages/manager/index'
 import userInfo from '../pages/manager/userInfo'
-import Test from '../pages/manager/competition'
+import Test from '../test/home'
 
 
 Vue.use(Router)

@@ -18,7 +18,7 @@ Vue.use(lodash);
 import {
   Button, Select, Row, Col, Radio, Input, Menu, Submenu, MenuItem, MenuItemGroup
   , Message, Loading, Avatar, Divider, Table, TableColumn, Form, FormItem, Collapse, CollapseItem, MessageBox,Carousel,CarouselItem,
- Option,DatePicker,Container,Header,Main,Dropdown,DropdownItem,DropdownMenu,Dialog,PageHeader,Pagination,Card} from 'element-ui';
+ Option,DatePicker,Container,Header,Main,Dropdown,DropdownItem,DropdownMenu,Dialog,PageHeader,Pagination,Card,Upload} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 /*
@@ -43,6 +43,7 @@ Message.install = function (Vue, options) {
   Vue.prototype.$confirm = MessageBox.confirm;
   Vue.prototype.$prompt = MessageBox.prompt;
 }
+Vue.use(Upload)
 Vue.use(Card)
 Vue.use(Pagination)
 Vue.use(PageHeader)
