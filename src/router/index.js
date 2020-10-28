@@ -480,7 +480,8 @@ router.beforeEach((to, from, next) => {
       next('/login_tea');
     }
   } else {
-    store.dispatch('getUserInfo');
+    if (!store.state.isLoaded)
+      store.dispatch('getUserInfo');
     next();
   }
 })

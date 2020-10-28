@@ -13,49 +13,25 @@
         || data.address.toLowerCase().includes(search.toLowerCase()))"
     >
       <el-table-column
-        prop="questionNum"
-        label="题号"
-        width="50%">
-      </el-table-column>
-      <el-table-column
-        prop="questionID"
+        prop="questionId"
         label="题目ID"
-        width="">
+        width="70%">
       </el-table-column>
       <el-table-column
         prop="questionName"
         label="题目"
         width="">
       </el-table-column>
-<!--      <el-table-column-->
-<!--        prop="CompStateName"-->
-<!--        label="附加文件"-->
-<!--        width="80%">-->
-<!--      </el-table-column>-->
-<!--      <el-table-column fixed="right"  width="50%">-->
-<!--        <template slot="header" slot-scope="scope">-->
-<!--          详情-->
-<!--        </template>-->
-<!--        <template slot-scope="scope">-->
-<!--          <el-button @click="getDetail(scope)" icon="el-icon-info">详情</el-button>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column fixed="right"  width="50%">-->
-<!--        <template slot="header" slot-scope="scope">-->
-<!--          修改-->
-<!--        </template>-->
-<!--        <template slot-scope="scope">-->
-<!--          <el-button @click="getDetail(scope)" icon="el-icon-info">修改</el-button>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column fixed="right"  width="50%">-->
-<!--        <template slot="header" slot-scope="scope">-->
-<!--          删除-->
-<!--        </template>-->
-<!--        <template slot-scope="scope">-->
-<!--          <el-button @click="getDetail(scope)" icon="el-icon-info">删除</el-button>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
+      <el-table-column
+        prop="subTeamSum"
+        label="已上交团队数"
+        width="70%">
+      </el-table-column>
+      <el-table-column
+        prop="subTeamSum"
+        label="已上交作品数"
+        width="70%">
+      </el-table-column>
     </el-table>
     <el-divider></el-divider>
     <div>请到网页版对题目进行相关操作</div>

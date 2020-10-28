@@ -20,6 +20,8 @@ export const common = {
   getHomeData: (params) => get('/home', params)
 }
 export const competition = {
+  getQuestion: (params) => get('/teacher/Topics', params),
+  getStudentQuestion:(params) => get('/users/showMyTopic', params),
   listByStatus: (params) => get('/Competitions/show', params),
   getMyComp: (params) => get('/users/myComp', params),
   //修改
@@ -42,5 +44,15 @@ export const team = {
   findTeamByName: (params) => get('/teams/Search', params),
   detail: (params) => get('/users/manage/detail', params),
   myTeams: (params) => get('/users/myteams', params),
+}
+
+export const question = {
+  /**
+   * 获取题目详情
+   * @param params questionId
+   * @returns {Promise | Promise<unknown>}
+   */
+  getDetail: (params) => get('teacher/TopicDetail', params),
+  downloadFile: (params) => get('teacher/TopicDetail', params),
 }
 
