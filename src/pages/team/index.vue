@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mt-header  fixed title="我的团队" style="background-color: #409eff">
+    <mt-header fixed title="我的团队" style="background-color: #409eff">
     </mt-header>
     <el-input
       placeholder="请输入竞赛名称"
@@ -44,46 +44,58 @@
 <script>
   import Header from './teamHead'
   import Footer from '../../components/tabbar'
-    export default {
-        name: "index",
-      components:{Footer,Header},
-      data(){
-        return{
-          tableData:[],
-          search:'',
-          max:document.documentElement.clientHeight-220,
-          maxWidth:document.documentElement.clientWidth,
-        }
+
+  export default {
+    name: "index",
+    components: {Footer, Header},
+    data() {
+      return {
+        tableData: [],
+        search: '',
+        max: document.documentElement.clientHeight - 220,
+        maxWidth: document.documentElement.clientWidth,
+      }
+    },
+    mounted() {
+      if (this.$store.state.user)
+        this.$axios.get('/users/manage').then((res) => {
+          this.tableData = res.data.data
+        }).catch((err => {
+          console.log(err)
+        }))
+    },
+    methods: {
+      goTeam() {
+        this.$router.push('/team');
       },
-      mounted() {
-        if(this.$store.state.user)
-          this.$axios.get('/users/manage').then((res)=>{
-            this.tableData=res.data.data
-          }).catch((err=>{
-            console.log(err)
-          }))
+      createTeam() {
+        this.$router.push('/team/newTeam')
       },
-      methods:{
-          goTeam(){
-            this.$router.push('/team');
-          },
-          createTeam(){
-            this.$router.push('/team/newTeam')
-          },
-        handleCurrentChange(val) {
-          this.$router.push({name:'myTeamDetail',params:{teamId:val.teamId,Role:val.Role,Passtatus:val.Passtatus}})
-        },
-        getDetail(scope){
-            let tableData=this.tableData.filter(data => !this.search || data.teamName.toLowerCase().includes(this.search.toLowerCase())
-              || data.Role.toLowerCase().includes(this.search.toLowerCase())
-              || data.Passtatus.toLowerCase().includes(this.search.toLowerCase()))
-          this.$router.push({name:'myTeamDetail',params:{teamId:tableData[scope.$index].teamId,Role:tableData[scope.$index].Role,Passtatus:tableData[scope.$index].Passtatus}})
-           // const params=new URLSearchParams()
-          // params.append('teamId',)
-          //   this.$axios.post('/users/manage/detail')
-        }
+      handleCurrentChange(val) {
+        this.$router.push({
+          path: '/team/myTeamDetail',
+          query: {
+            teamId: val.teamId,
+            Role: val.Role,
+            Passtatus: val.Passtatus
+          }
+        })
+      },
+      getDetail(scope) {
+        let tableData = this.tableData.filter(data => !this.search || data.teamName.toLowerCase().includes(this.search.toLowerCase())
+          || data.Role.toLowerCase().includes(this.search.toLowerCase())
+          || data.Passtatus.toLowerCase().includes(this.search.toLowerCase()))
+        this.$router.push({
+          path: '/team/myTeamDetail',
+          query: {
+            teamId: tableData[scope.$index].teamId,
+            Role: tableData[scope.$index].Role,
+            Passtatus: tableData[scope.$index].Passtatus
+          }
+        })
       }
     }
+  }
 </script>
 
 <style scoped>
