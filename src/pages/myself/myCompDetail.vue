@@ -13,7 +13,7 @@
         <mt-cell title="人数限制:" :value="details.personNum"></mt-cell>
         <mt-cell title="指导老师:" :value="details.teacher"></mt-cell>
         <mt-field label="竞赛描述:" :value="details.compIntro" readonly type="textarea" rows="4"></mt-field>
-        <mt-cell title="竞赛状态:" :value="getNameByCode($route.params.CompState)"></mt-cell>
+        <mt-cell title="竞赛状态:" :value="getNameByCode($route.query.CompState)"></mt-cell>
       </div>
       <div v-if="isEnd">
         <el-button @click="getDetail" type="primary" style="width: 30%">竞赛题目</el-button>
@@ -44,14 +44,14 @@
       }
     },
     mounted() {
-      if (this.$route.params.CompState === '5')
+      if (this.$route.query.CompState === '5')
         this.isEnd = true
-      else if (this.$route.params.CompState === '1')
+      else if (this.$route.query.CompState === '1')
         this.isStart = true
-      else if (this.$route.params.CompState === '2') {
+      else if (this.$route.query.CompState === '2') {
 
       } else this.isIng = true
-      this.$axios.get('/Competitions/detail', {params: {CompId: this.$route.params.CompId}}).then((res) => {
+      this.$axios.get('/Competitions/detail', {params: {CompId: this.$route.query.CompId}}).then((res) => {
         this.details = res.data.data
       }).catch((err) => {
         console.log(err);
@@ -63,21 +63,24 @@
       },
       getDetail() {
         this.$router.push({
-          name: 'compSubject',
-          params: {CompId: this.$route.params.CompId, CompState: this.$route.params.CompState}
+          path: '/myself/compSubject',
+          query: {
+            CompId: this.$route.query.CompId,
+            CompState: this.$route.query.CompState,
+          }
         })
       },
       getResult() {
         this.$router.push({
           name: 'queryResult',
-          params: {CompId: this.$route.params.CompId, CompState: this.$route.params.CompState}
+          params: {CompId: this.$route.query.CompId, CompState: this.$route.query.CompState}
         })
       },
       back() {
         let select = '';
-        if (this.$route.params.CompState === '1') {
+        if (this.$route.query.CompState === '1') {
           select = 'start'
-        } else if (this.$route.params.CompState <= 3) {
+        } else if (this.$route.query.CompState <= 3) {
           select = 'ing';
         } else {
           select = 'end';

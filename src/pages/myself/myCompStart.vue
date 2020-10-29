@@ -158,7 +158,13 @@
             compState = '5';
             break;
         }
-        this.$router.push({name: 'myCompDetail', params: {CompId: val.CompId, CompState: compState}})
+        this.$router.push({
+          path: '/myself/myCompDetail',
+          query: {
+            CompId: val.CompId,
+            CompState: compState
+          }
+        })
       },
       getData() {
         this.$axios.get('/users/myComp', {params: {status: this.state}}).then((res) => {

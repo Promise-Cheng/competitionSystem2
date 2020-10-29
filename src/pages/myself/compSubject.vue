@@ -49,7 +49,7 @@
   export default {
     name: "compSubject",
     mounted() {
-      api.competition.getStudentQuestion({CompId: this.$route.params.CompId}).then((res) => {
+      api.competition.getStudentQuestion({CompId: this.$route.query.CompId}).then((res) => {
         this.tableData = res.data
       })
     },
@@ -67,25 +67,14 @@
           path: '/myself/compSubjectDetail',
           query: {
             questionId: tableData[scope.$index].questionId,
-            CompId: this.$route.params.CompId,
-            CompState: this.$route.params.CompState,
+            CompId: this.$route.query.CompId,
+            CompState: this.$route.query.CompState,
             teamCompId: tableData[scope.$index].teamCompId,
           }
         })
-        // this.$router.push({
-        //   name: 'compSubjectDetail',
-        //   params: {
-        //     questionId: tableData[scope.$index].questionId,
-        //     CompId: this.$route.params.CompId,
-        //     CompState: this.$route.params.CompState
-        //   }
-        // })
       },
       back() {
-        this.$router.replace({
-          name: 'myCompDetail',
-          params: {CompId: this.$route.params.CompId, CompState: this.$route.params.CompState}
-        })
+        this.$router.back(-1);
       }
     }
   }

@@ -66,10 +66,7 @@
         //     excelId: this.current.id,
         //   }
         // })
-        this.$router.push({
-          name: 'compSubject',
-          params: {CompId: this.$route.query.CompId, CompState: this.$route.query.CompState}
-        })
+        this.$router.back(-1);
       }
     }
   }
