@@ -91,6 +91,7 @@
                   sessionStorage.setItem('ms_username',this.stuId);
                   sessionStorage.setItem('ms_password',this.password);
                   sessionStorage.setItem('userType', '1');
+                  this.$store.dispatch('getUserInfo')
                   this.$message({
                     message: '登录成功',
                     type: 'success'

@@ -20,7 +20,7 @@
       <el-table-column
         prop="phoneNum"
         label="手机"
-        width="50%">
+        width="120%">
       </el-table-column>
       <el-table-column width="150%">
         <template slot="header" slot-scope="scope">
@@ -28,8 +28,8 @@
         </template>
         <template slot-scope="scope">
           <!--          <el-button type="text" @click="toogleExpand(scope)">查看详情</el-button>-->
-          <el-button @click="getDetail(scope,'1') " icon="el-icon-check" size="mini"></el-button>
-          <el-button @click="getDetail(scope,'0') " icon="el-icon-close" size="mini"></el-button>
+          <el-button style="margin-left: 0" @click="getDetail(scope,'1') " icon="el-icon-check" size="mini"></el-button>
+          <el-button style="margin-left: 0" @click="getDetail(scope,'0') " icon="el-icon-close" size="mini"></el-button>
         </template>
       </el-table-column>
 
@@ -74,13 +74,11 @@
             params.append('passState','reject')
           }
           this.$axios.post('/users/manageApply',params).then((res)=>{
-            console.log(res)
             if(res.data.result==='success'){
               this.$message({
                 type: 'success',
                 message: '操作成功!'
               });
-
               this.getData()
             }
             else if(res.data.result==='null'){

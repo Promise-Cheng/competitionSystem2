@@ -26,7 +26,7 @@
          this.$router.push('/myself')
        },
         edit(){
-         if(this.oldPassword===this.$store.state.user.password){
+         if(this.oldPassword===sessionStorage.getItem('ms_password')){
            if(this.state==='success'){
              const params=new URLSearchParams()
              params.append('password',this.newPassword1)

@@ -17,6 +17,7 @@
       <div style="text-align: center;font-size: 24px;width: 100%;margin-bottom: 20px">作品上传</div>
       <upload-file
         :work-name="'test1'"
+        @after-upload="afterUpload"
         :introduction="'测试'"
         :question="this.$route.query.questionId"
         :team-comp-id="this.$route.query.teamCompId"></upload-file>
@@ -47,6 +48,12 @@
       })
     },
     methods: {
+      afterUpload(){
+        this.$router.push({
+          name: 'compSubject',
+          params: {CompId: this.$route.query.CompId, CompState: this.$route.query.CompState}
+        })
+      },
       downloadFile(){
         api.question.downloadFile({savedPath:this.details.files['exp2_simple+query1.doc'],realName:this.details.questionName+'竞赛题目.txt'}).then((res)=>{
           console.log(res)

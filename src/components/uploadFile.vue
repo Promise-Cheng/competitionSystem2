@@ -86,14 +86,13 @@
         }
         this.$axios.post(`/users/uploadWorks`, fileFormData, requestConfig)
           .then((res) => {
-            console.log('上传数据后返或数据')
-            console.log(res)
             if (res.data.status === "success") {
               this.$message({
                 message: '操作成功',
                 type: 'success',
                 duration: 1500,
               })
+              this.$emit('after-upload')
             } else {
               this.$message.error("上传失败！请重新操作")
             }
