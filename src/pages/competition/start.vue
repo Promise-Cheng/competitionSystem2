@@ -25,7 +25,7 @@
             width="">
           </el-table-column>
           <el-table-column
-            prop="CompName"
+            prop="TypeName"
             label="类型"
             sortable
             width="80%">
@@ -41,7 +41,7 @@
     </div>
     <div v-else>
       <mt-header fixed title="校内竞赛" style="line-height: 20px;background-color:#E6A23C ">
-        <mt-button icon="back" slot="left" @click="back">返回</mt-button>
+        <mt-button icon="back" slot="left" @click="backToHome">返回</mt-button>
       </mt-header>
       <mt-navbar v-model="selected" class="nav">
         <mt-tab-item id="start"><i class="el-icon-s-promotion" style="font-size: 12px"></i>报名中</mt-tab-item>
@@ -123,7 +123,7 @@
         num: 1,
         total: 100,
         pageSize: 5,
-        selected: 'start',
+        selected: null,
         state: 1,
         isSearch: false,
       }
@@ -132,8 +132,9 @@
       if (this.$route.params.selected) {
         this.selected = this.$route.params.selected;
       }
-      else
+      else{
         this.getData();
+      }
     },
     watch: {
       selected: function (val, oldVal) {
@@ -157,6 +158,11 @@
     methods: {
       back() {
         this.$router.back(-1)
+      },
+      backToHome(){
+        this.$router.push({
+          path: '/home',
+        })
       },
       handleSizeChange(val) {
         this.pageSize = val
@@ -197,7 +203,8 @@
         }
       },
       ToSearch() {
-        this.isSearch = (this.search !== "")
+        this.isSearch = true;
+        this.getData();
       },
       loadTop() {
         setTimeout(() => {
