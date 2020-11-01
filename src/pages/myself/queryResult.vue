@@ -47,17 +47,13 @@
         }
       },
       mounted() {
-        this.$axios.get('users/showResult',{params:{CompId:this.$route.params.CompId}}).then((res)=>{
+        this.$axios.get('users/showResult',{params:{CompId:this.$route.query.CompId}}).then((res)=>{
           this.tableData=res.data.data
         })
       },
       methods:{
           back(){
-            if(this.$route.params.isTeather){
               this.$router.back(-1)
-            }
-            this.$router.push({name:'myCompDetail',params:{CompId:this.$route.params.CompId,CompState:'5'}})
-
           }
       }
     }

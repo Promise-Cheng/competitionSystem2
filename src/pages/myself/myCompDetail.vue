@@ -4,7 +4,6 @@
       <mt-header title="详情信息" fixed style="line-height: 20px">
         <mt-button icon="back" slot="left" @click="back">返回</mt-button>
       </mt-header>
-      <el-divider></el-divider>
       <div style="margin-bottom: 30px">
         <mt-cell title="竞赛名称:" :value="details.compName"></mt-cell>
         <mt-cell title="竞赛类型:" :value="details.CompName"></mt-cell>
@@ -72,8 +71,11 @@
       },
       getResult() {
         this.$router.push({
-          name: 'queryResult',
-          params: {CompId: this.$route.query.CompId, CompState: this.$route.query.CompState}
+          path: '/myself/queryResult',
+          query: {
+            CompId: this.$route.query.CompId,
+            CompState: this.$route.query.CompState
+          }
         })
       },
       back() {
@@ -85,7 +87,12 @@
         } else {
           select = 'end';
         }
-        this.$router.replace({name: 'myStart', params: {selected1: select}})
+        this.$router.push({
+          path: '/competition/start',
+          query: {
+            selected1: select
+          }
+        })
       }
     }
   }

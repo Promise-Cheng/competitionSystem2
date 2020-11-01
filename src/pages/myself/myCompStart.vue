@@ -108,23 +108,23 @@
       },
     },
     mounted() {
-      if (this.$route.params.selected1 === 'start') {
+      if (this.$route.query.selected1 === 'start') {
         this.statuName = '申请状态';
         this.columnName = 'Passtatus';
-        this.selected1 = this.$route.params.selected1;
+        this.selected1 = this.$route.query.selected1;
         this.state = 1;
         this.isStart = true;
-      } else if (this.$route.params.selected1 === 'ing') {
+      } else if (this.$route.query.selected1 === 'ing') {
         this.statuName = '竞赛状态';
         this.columnName = 'CompStateName';
-        this.selected1 = this.$route.params.selected1;
+        this.selected1 = this.$route.query.selected1;
         this.state = 2;
         this.isStart = false;
-      } else if (this.$route.params.selected1 === 'end') {
+      } else if (this.$route.query.selected1 === 'end') {
         this.statuName = '竞赛状态';
         this.columnName = 'CompStateName';
         this.state = 3;
-        this.selected1 = this.$route.params.selected1;
+        this.selected1 = this.$route.query.selected1;
         this.isStart = false;
       } else {
         this.statuName = '竞赛状态';

@@ -6,7 +6,7 @@ import QS from 'qs'// 引入qs模块，用来序列化post类型的数据
 
 // 环境的切换  设置axios的默认请求地址
 // 通过node的环境变量来匹配我们的默认的接口url前缀
-axios.defaults.baseURL = 'http://localhost:8085';
+axios.defaults.baseURL = 'http://localhost:8085';//http://101.37.13.10:8085   http://localhost:8085
 axios.defaults.withCredentials=true;
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 // if (process.env.NODE_ENV === 'development') {
