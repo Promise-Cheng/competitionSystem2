@@ -59,10 +59,9 @@
               <div class="text item" style="font-size: 12px">
                 {{'竞赛状态：' + item.CompStateName }}
               </div>
-<!--              <div class="text item" style="font-size: 12px">-->
-<!--                {{'开始时间：' + new Date(item.obStartTIme).toString().substring(0,10) + ' ' +new-->
-<!--                Date(item.obStartTIme).toString().substring(11,19) }}-->
-<!--              </div>-->
+              <div class="text item" style="font-size: 12px">
+                {{'开始时间：' +  getDatetimeString(item.obStartTIme)}}
+              </div>
 <!--              <div class="text item" style="font-size: 12px">-->
 <!--                {{'结束时间：' + new Date(item.obEndTime).toString().substring(0,10) + ' ' +new-->
 <!--                Date(item.obEndTime).toString().substring(11,19) }}-->
@@ -75,10 +74,10 @@
         </template>
       </mt-swipe>
     </div>
-    <div style="margin-bottom: 30px">
-      <div id="chart_example" :style="{width:width}">
-      </div>
-    </div>
+<!--    <div style="margin-bottom: 30px">-->
+<!--      <div id="chart_example" :style="{width:width}">-->
+<!--      </div>-->
+<!--    </div>-->
     <Footer/>
   </div>
 
@@ -88,6 +87,7 @@
   import echarts from 'echarts'
   import Footer from './tabbar'
   import Search from './search'
+  import moment from 'moment'
 
   export default {
     name: "home",
@@ -115,7 +115,7 @@
     },
     methods: {
       getDatetimeString(time) {
-        return moment(time).format('YYYY-MM-DD hh-mm-ss');
+        return moment(time).format('YYYY-MM-DD HH:mm:ss');
       },
       goTeam() {
         this.$router.push('/team');
@@ -125,14 +125,18 @@
       },
       goComptitionDetail(index) {
         this.$router.push({
-          name: 'detail', params: {
-            CompId: this.latestComp[index].CompId
-            , compStateName: this.latestComp[index].CompStateName, isHome: '1'
+          path: '/competition/detail',
+          query: {
+            CompId: this.latestComp[index].CompId,
+            compStateName: this.latestComp[index].CompStateName,
+            isHome: '1'
           }
         })
       },
       ToSearch() {
-        this.$router.push({name: 'compSearch1', params: {}})
+        this.$router.push({
+          name: 'compSearch1'
+        })
       },
       handleCommand(command) {
         switch (command) {
@@ -183,8 +187,8 @@
       },
     },
     mounted() {
-      let CompName = []
-      let CompNumber = []
+      // let CompName = []
+      // let CompNumber = []
       this.getLatestComp()
       this.$axios.get('/home').then((res) => {
         this.CompList = res.data.data.CompList
@@ -195,53 +199,51 @@
           CompName.push(this.CompList[compList].CompName)
           CompNumber.push(this.CompList[compList].Sum)
         }
-        let this_ = this;
-        let myChart = echarts.init(document.getElementById('chart_example'));
-        let option = {
-          title: {text: '各类竞赛数量统计'},
-          color: ['#f44'],
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'shadow'
-            }
-          },
-          xAxis: [
-            {
-              type: 'category',
-              data: CompName,
-              axisLabel: {
-                interval: 0
-              },
-              axisTick: {
-                alignWithLabel: true
-              }
-            }
-          ],
-          yAxis: [
-            {
-              type: 'value',
-            }
-          ],
-          series: [
-            {
-              name: '数量',
-              type: 'bar',
-              barWidth: '60%',
-              data: CompNumber,
-            }
-          ]
-        };
-        myChart.setOption(option);
-        //建议加上以下这一行代码，不加的效果图如下（当浏览器窗口缩小的时候）。超过了div的界限（红色边框）
-        window.addEventListener('resize', function () {
-          myChart.resize()
-        });
+      //   let this_ = this;
+      //   let myChart = echarts.init(document.getElementById('chart_example'));
+      //   let option = {
+      //     title: {text: '各类竞赛数量统计'},
+      //     color: ['#f44'],
+      //     tooltip: {
+      //       trigger: 'axis',
+      //       axisPointer: {
+      //         type: 'shadow'
+      //       }
+      //     },
+      //     xAxis: [
+      //       {
+      //         type: 'category',
+      //         data: CompName,
+      //         axisLabel: {
+      //           interval: 0
+      //         },
+      //         axisTick: {
+      //           alignWithLabel: true
+      //         }
+      //       }
+      //     ],
+      //     yAxis: [
+      //       {
+      //         type: 'value',
+      //       }
+      //     ],
+      //     series: [
+      //       {
+      //         name: '数量',
+      //         type: 'bar',
+      //         barWidth: '60%',
+      //         data: CompNumber,
+      //       }
+      //     ]
+      //   };
+      //   myChart.setOption(option);
+      //   //建议加上以下这一行代码，不加的效果图如下（当浏览器窗口缩小的时候）。超过了div的界限（红色边框）
+      //   window.addEventListener('resize', function () {
+      //     myChart.resize()
+      //   });
       }).catch((err) => {
         console.log(err)
       })
-
-
     }
 
   }
