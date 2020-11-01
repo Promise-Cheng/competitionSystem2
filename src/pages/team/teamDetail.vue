@@ -33,7 +33,7 @@
           }
       },
       mounted() {
-          this.$axios.get('/teams/show/detail',{params:{teamId:this.$route.params.teamId}})
+          this.$axios.get('/teams/show/detail',{params:{teamId:this.$route.query.teamId}})
             .then((res)=>{
               this.details=res.data.data
             }).catch((err)=>{
@@ -43,7 +43,7 @@
       methods:{
           join(){
             const params=new URLSearchParams()
-            params.append('teamId',this.$route.params.teamId)
+            params.append('teamId',this.$route.query.teamId)
             this.$axios.post('/users/applyToteam',params).then((res)=>{
               if(res.data.result==='success'){
                 this.$message({
@@ -56,7 +56,6 @@
                 this.$message.error('您已申请过加入该团队');
                 this.back()
               }
-
             }).catch((err)=>{
               console.log(err)
             })

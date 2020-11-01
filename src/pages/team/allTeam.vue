@@ -1,7 +1,7 @@
 <template>
   <div>
     <mt-header fixed title="校内团队信息" style="line-height: 20px;background-color:#409eff ">
-      <mt-button icon="back" slot="left" @click="back">返回</mt-button>
+      <mt-button icon="back" slot="left" @click="backToHome">返回</mt-button>
     </mt-header>
     <div v-if="isSearch">
       <div>
@@ -132,16 +132,10 @@
         }
       },
       handleCurrentChange(val) {
-        this.$router.push({name: 'teamDetail', params: {teamId: val.teamId}})
-      },
-      Detail(index) {
-        let tableData = this.tableData.filter(data => !this.search || data.teamName.toLowerCase().includes(this.search.toLowerCase())
-          || data.stuName.toLowerCase().includes(this.search.toLowerCase())
-          || data.stuNum.toLowerCase().includes(this.search.toLowerCase()))
         this.$router.push({
-          name: 'teamDetail',
-          params: {
-            'teamId': tableData[index].teamId
+          path: '/team/teamDetail',
+          query: {
+            teamId: val.teamId
           }
         })
       },
@@ -166,7 +160,12 @@
       },
       back() {
         this.$router.back(-1);
-      }
+      },
+      backToHome() {
+        this.$router.push({
+          path: '/home',
+        })
+      },
     }
 
   }
