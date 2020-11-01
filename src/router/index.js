@@ -26,10 +26,7 @@ import About from "@/pages/myself/About";
 
 /* stuCompetition */
 import Start from '../pages/competition/start'
-import Ing from '../pages/competition/ing'
-import End from '../pages/competition/end'
 import Detail from '../pages/competition/detail'
-import allComp from '../pages/competition/AllComp'
 import SignUp from '../pages/competition/SignUp'
 /* stuTeam */
 import TeamIndex from '../pages/team/index'
@@ -220,33 +217,9 @@ const router = new Router({
       }
     },
     {
-      path: '/competition/ing',
-      name: 'ing',
-      component: Ing,
-      meta: {
-        keepAlive: true // 不需要缓存
-      }
-    },
-    {
-      path: '/competition/end',
-      name: 'end',
-      component: End,
-      meta: {
-        keepAlive: true // 不需要缓存
-      }
-    },
-    {
       path: '/competition/detail',
       name: 'detail',
       component: Detail
-    },
-    {
-      path: '/competition',
-      name: 'allComp',
-      component: allComp,
-      meta: {
-        keepAlive: true // 不需要缓存
-      }
     },
     {
       path: '/competition/signUp',

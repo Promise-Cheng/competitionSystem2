@@ -11,7 +11,7 @@
       <mt-cell title="人数限制:" :value="details.personNum"></mt-cell>
       <mt-cell title="指导老师:" :value="details.teacher"></mt-cell>
              <mt-field label="竞赛描述:" :value="details.compIntro" readonly type="textarea" rows="4"></mt-field>
-      <mt-cell title="竞赛状态:" :value="$route.params.compStateName"></mt-cell>
+      <mt-cell title="竞赛状态:" :value="$route.query.compStateName"></mt-cell>
     </div>
     <div v-if="!isSignUp">
       <el-button @click="back" type="primary" style="width: 60%">返回</el-button>
@@ -33,11 +33,11 @@
     },
     computed: {
       isSignUp() {
-        return this.$route.params.compStateName === "开始报名"
+        return this.$route.query.compStateName === "开始报名"
       }
     },
     mounted() {
-      this.$axios.get('/Competitions/detail', {params: {CompId: this.$route.params.CompId}}).then((res) => {
+      this.$axios.get('/Competitions/detail', {params: {CompId: this.$route.query.CompId}}).then((res) => {
         this.details = res.data.data
       }).catch((err) => {
         console.log(err);
@@ -47,7 +47,7 @@
       signUp() {
         if (this.details.personNum === 1) {
           const params = new URLSearchParams()
-          params.append('CompId', this.$route.params.CompId)
+          params.append('CompId', this.$route.query.CompId)
           this.$messagebox.confirm('该竞赛为个人竞赛，是否直接报名？', '提示').then(() => {
             this.$axios.post('users/PapplyToComp', params).then(
               (res) => {
@@ -70,27 +70,29 @@
 
           })
         } else
-          this.$router.replace({
-            name: 'signUp', params: {
-              CompId: this.$route.params.CompId,
-              personNum: this.details.personNum, compStateName: this.$route.params.compStateName
+          this.$router.push({
+            name: 'signUp',
+            query: {
+              CompId: this.$route.query.CompId,
+              personNum: this.details.personNum,
+              compStateName: this.$route.query.compStateName
             }
           })
       },
       back() {
-        if (this.$route.params.isHome === '1') {
+        if (this.$route.query.isHome === '1') {
           this.$router.back(-1)
           return;
         }
         let select = '';
         if (this.isSignUp) {
           select = 'start'
-        } else if (this.$route.params.compStateName === '截至报名' || this.$route.params.compStateName === '开始竞赛') {
+        } else if (this.$route.query.compStateName === '截至报名' || this.$route.query.compStateName === '开始竞赛') {
           select = 'ing'
         } else {
           select = 'end'
         }
-        this.$router.replace({name: 'start', params: {selected: select}})
+        this.$router.push({name: 'start', params: {selected: select}})
       }
     }
   }

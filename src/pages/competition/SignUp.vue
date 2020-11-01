@@ -4,7 +4,7 @@
         <mt-button icon="back" slot="left" @click="back">返回</mt-button>
       </mt-header>
       <el-divider></el-divider>
-      <span>竞赛人数限制：{{this.$route.params.personNum}}</span>
+      <span>竞赛人数限制：{{this.$route.query.personNum}}</span>
       <el-divider></el-divider>
       <el-table
         max-height="350"
@@ -57,7 +57,6 @@
               if(res.data.data){
                 this.tableData=res.data.data
               }
-
             else{
                 this.$message('您不是任何团队队长，不能报名，请联系团队队长报名竞赛');
               }
@@ -69,7 +68,7 @@
               || data.teamName.toLowerCase().includes(this.search.toLowerCase()))
             const params=new URLSearchParams();
             params.append('teamId',tableData[scope.$index].teamId)
-            params.append('CompId',this.$route.params.CompId)
+            params.append('CompId',this.$route.query.CompId)
             this.$axios.post('users/myteams/applyToComp',params).then(
               (res)=>{
                 if(res.data.result==='success'){
@@ -91,8 +90,7 @@
             })
           },
         back(){
-          this.$router.replace({name:'detail',params:{CompId:this.$route.params.CompId
-              ,compStateName:this.$route.params.CompStateName}})
+          this.$router.back(-1);
         }
       }
     }
