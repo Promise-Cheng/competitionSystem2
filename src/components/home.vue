@@ -62,10 +62,9 @@
               <div class="text item" style="font-size: 12px">
                 {{'开始时间：' +  getDatetimeString(item.obStartTIme)}}
               </div>
-<!--              <div class="text item" style="font-size: 12px">-->
-<!--                {{'结束时间：' + new Date(item.obEndTime).toString().substring(0,10) + ' ' +new-->
-<!--                Date(item.obEndTime).toString().substring(11,19) }}-->
-<!--              </div>-->
+              <div class="text item" style="font-size: 12px">
+                {{'结束时间：' +  getDatetimeString(item.obEndTime)}}
+              </div>
               <div class="text item" style="font-size: 12px">
                 {{'竞赛描述：' + item.compIntro }}
               </div>
@@ -131,11 +130,6 @@
             compStateName: this.latestComp[index].CompStateName,
             isHome: '1'
           }
-        })
-      },
-      ToSearch() {
-        this.$router.push({
-          name: 'compSearch1'
         })
       },
       handleCommand(command) {

@@ -80,7 +80,7 @@
           })
       },
       back() {
-        if (this.$route.query.isHome === '1') {
+        if (this.$route.query.isHome) {
           this.$router.back(-1)
           return;
         }
