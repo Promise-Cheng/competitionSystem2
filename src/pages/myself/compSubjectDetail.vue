@@ -49,10 +49,7 @@
     },
     methods: {
       afterUpload(){
-        this.$router.push({
-          name: 'compSubject',
-          params: {CompId: this.$route.query.CompId, CompState: this.$route.query.CompState}
-        })
+        this.back();
       },
       downloadFile(){
         api.question.downloadFile({savedPath:this.details.files['exp2_simple+query1.doc'],realName:this.details.questionName+'竞赛题目.txt'}).then((res)=>{
@@ -60,12 +57,6 @@
         })
       },
       back() {
-        // this.$router.push({
-        //   path: '/backend/budget-filling-config',
-        //   query: {
-        //     excelId: this.current.id,
-        //   }
-        // })
         this.$router.back(-1);
       }
     }

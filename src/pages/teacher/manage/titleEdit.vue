@@ -28,7 +28,7 @@
         width="70%">
       </el-table-column>
       <el-table-column
-        prop="subTeamSum"
+        prop="subWorkSum"
         label="已上交作品数"
         width="70%">
       </el-table-column>
@@ -48,7 +48,7 @@
       }
     },
     mounted(){
-      this.$axios.get('/teacher/Topics',{params:{CompId:this.$route.params.CompId}}).then((res)=>{
+      this.$axios.get('/teacher/Topics',{params:{CompId:this.$route.query.CompId}}).then((res)=>{
         this.tableData=res.data.data
       })
     },

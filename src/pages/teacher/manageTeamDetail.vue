@@ -49,7 +49,7 @@
         }
       },
       mounted() {
-        this.$axios.get('/users/manage/detail',{params:{teamId:this.$route.params.teamId}})
+        this.$axios.get('/users/manage/detail',{params:{teamId:this.$route.query.teamId}})
           .then((res)=>{
             if(res.data){
               this.details=res.data
@@ -63,12 +63,11 @@
       },
       methods:{
           back(){
-            this.$router.replace({name:'manageTeam',params:{CompId:this.$store.state.compInfo.compId,manage:'1',
-             CompStateName:this.$store.state.compInfo.CompStateName}})
+            this.$router.back(-1);
           },
           IsPass(is){
             const params=new URLSearchParams()
-            params.append('teamCompId',this.$route.params.teamCompId)
+            params.append('teamCompId',this.$route.query.teamCompId)
             if(is==='1'){
               params.append('passState','Pass')
             }
@@ -81,8 +80,7 @@
                   message: '操作成功',
                   type: 'success'
                 })
-               this.$router.replace({name:'manageTeam',params:{CompId:this.$store.state.compInfo.compId,manage:'1',
-             CompStateName:this.$store.state.compInfo.CompStateName}})
+               this.back()
             }).catch((err)=>{
               console.log(err)
             })

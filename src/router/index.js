@@ -178,7 +178,10 @@ const router = new Router({
     {
       path: '/myself/compSubject',
       name: 'compSubject',
-      component: CompSubject
+      component: CompSubject,
+      meta: {
+        keepAlive: true // 不需要缓存
+      }
     },
     {
       path: '/myself/compSubjectDetail',
@@ -272,6 +275,9 @@ const router = new Router({
       path: '/teacher/checkTeamDetail',
       name: 'checkTeamDetail',
       component: CheckTeamDetail,
+      meta: {
+        keepAlive: true // 不需要缓存
+      }
     },
     {
       path: '/login_tea',

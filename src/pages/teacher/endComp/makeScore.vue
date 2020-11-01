@@ -76,62 +76,61 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-button  type="primary" style="width: 30%" @click="back">返回</el-button>
+    <el-button type="primary" style="width: 30%" @click="back">返回</el-button>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "makeScore",
-      mixins:[],
-      data(){
-        return{
-          CompStateName:'',
-          search:'',
-          tableData:[],
-          max:document.documentElement.clientHeight-160,
-          maxWidth:document.documentElement.clientWidth,
-          state:'',
-        }
+  export default {
+    name: "makeScore",
+    mixins: [],
+    data() {
+      return {
+        CompStateName: '',
+        search: '',
+        tableData: [],
+        max: document.documentElement.clientHeight - 160,
+        maxWidth: document.documentElement.clientWidth,
+        state: '',
+      }
+    },
+    computed: {
+      isEnd() {
+        return this.$route.query.CompStateName === '提交成果关闭'
+      }
+    },
+    mounted() {
+      this.$axios.get('/teacher/getPassedteam', {params: {CompId: this.$route.query.CompId}}).then((res) => {
+        this.tableData = res.data.data
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    methods: {
+      handleCurrentChange(val) {
+        this.$router.push({
+          name: 'score',
+          query: {
+            teamCompId: val.teamCompId
+          }
+        })
       },
-      computed:{
-        isEnd(){
-          return this.$store.state.compInfo.CompStateName==='提交成果关闭'
-        }
-      },
-      mounted(){
-          this.$axios.get('/teacher/getPassedteam',{params:{CompId:this.$route.params.CompId}}).then((res)=>{
-            this.tableData=res.data.data
-          }).catch((err)=>{
-            console.log(err)
-          })
-      },
-      methods:{
-        handleCurrentChange(val){
-          this.$router.replace({name:'score',params:{teamCompId:val.teamCompId}})
-        },
-          getDetail(scope){
-            let tableData=this.tableData.filter(data => !this.search || data.teamName.toLowerCase().includes(this.search.toLowerCase())
-              || data.teamId.toLowerCase().includes(this.search.toLowerCase())
-              || data.PassState.toLowerCase().includes(this.search.toLowerCase()))
-            this.$router.replace({name:'score',params:{teamCompId:tableData[scope.$index].teamCompId}})
-          },
-        back(){
-          this.$router.back(-1)
-        }
-      },
-    }
+      back() {
+        this.$router.back(-1)
+      }
+    },
+  }
 </script>
 
 <style scoped>
-  .nav{
-    line-height:20px;
-    color:#ffd04b;
-    background-color:#545c64;
-    position:absolute; /* 绝对定位，fixed是相对于浏览器窗口定位。 */
-    top:0; /* 距离窗口顶部距离 */
-    left:0; /* 距离窗口左边的距离 */
-    width:100%; /* 宽度设置为100% */
-    z-index:99; /* 层叠顺序，数值越大就越高。页面滚动的时候就不会被其他内容所遮挡。 */
+  .nav {
+    line-height: 20px;
+    color: #ffd04b;
+    background-color: #545c64;
+    position: absolute; /* 绝对定位，fixed是相对于浏览器窗口定位。 */
+    top: 0; /* 距离窗口顶部距离 */
+    left: 0; /* 距离窗口左边的距离 */
+    width: 100%; /* 宽度设置为100% */
+    z-index: 99; /* 层叠顺序，数值越大就越高。页面滚动的时候就不会被其他内容所遮挡。 */
   }
 </style>

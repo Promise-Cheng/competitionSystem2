@@ -19,14 +19,6 @@
             prefix-icon="el-icon-s-custom"
             v-model="compType" disabled style="width: 50%">
           </el-input>
-          <!--          <el-select v-model="compType"  placeholder="请选择竞赛类型" style="width: 35%">-->
-          <!--            <el-option-->
-          <!--              v-for="item in compTypes"-->
-          <!--              :key="item.CompTypeid"-->
-          <!--              :label="item.CompName"-->
-          <!--              :value="item.CompTypeid">-->
-          <!--            </el-option>-->
-          <!--          </el-select>-->
         </el-form-item>
         <el-form-item label="开始时间:">
           <div @click="openPicker('startTime')">
@@ -34,12 +26,6 @@
               <i slot="suffix" class="el-input__icon el-icon-date"></i>
             </el-input>
           </div>
-          <!--            <el-date-picker-->
-          <!--              v-model="startTime"-->
-          <!--              value-format="yyyy-MM-dd HH:mm:ss"-->
-          <!--              type="datetime"-->
-          <!--              placeholder="选择日期时间">-->
-          <!--            </el-date-picker>-->
         </el-form-item>
         <el-form-item label="结束时间:">
           <div @click="openPicker('endTime')">
@@ -86,12 +72,13 @@
 
 <script>
   import moment from 'moment';
+
   export default {
     name: "pubComp",
     data() {
       return {
-        startDate:new Date(),
-        dateTime:new Date(),
+        startDate: new Date(),
+        dateTime: new Date(),
         dateKey: -1,
         value: '',
         topic: '竞赛发布',
@@ -138,11 +125,11 @@
         console.log(err)
       })
       //如果是修改信息则请求已有数据，进行修改
-      if (this.$route.params.CompId) {
+      if (this.$route.query.CompId) {
         this.topic = '竞赛信息修改'
         this.operation = '立即修改'
         this.backPath = '/teacher/manage'
-        this.$axios.get('/Competitions/detail', {params: {CompId: this.$route.params.CompId}}).then((res) => {
+        this.$axios.get('/Competitions/detail', {params: {CompId: this.$route.query.CompId}}).then((res) => {
           this.details = res.data.data
           this.startTime = this.details.startTime
           this.endTime = this.details.endTime
@@ -156,8 +143,8 @@
       }
     },
     methods: {
-      handleConfirm(){
-        this.$set(this,this.dateKey,moment(_.cloneDeep(this.dateTime)).format('YYYY-MM-DD HH:mm')+':00')
+      handleConfirm() {
+        this.$set(this, this.dateKey, moment(_.cloneDeep(this.dateTime)).format('YYYY-MM-DD HH:mm') + ':00')
       },
       openPicker(key) {
         this.dateKey = key;
@@ -176,9 +163,9 @@
           return;
         }
         const params = new URLSearchParams()
-        if (this.$route.params.CompId) {
+        if (this.$route.query.CompId) {
           params.append('compName', this.compName)
-          params.append('CompId', this.$route.params.CompId)
+          params.append('CompId', this.$route.query.CompId)
           params.append('CompTypeid', compType)
           params.append('startTime', this.startTime)
           params.append('endTime', this.endTime)
@@ -191,12 +178,7 @@
                 type: 'success'
               });
             }
-            this.$router.replace({
-              name: 'manageTeam', params: {
-                CompId: this.$store.state.compInfo.compId, manage: '1',
-                CompStateName: this.$store.state.compInfo.CompStateName
-              }
-            })
+            this.back();
           }).catch((err) => {
             console.log(err)
           })
@@ -214,8 +196,12 @@
                 type: 'success'
               });
             }
-            //this.$store.state.compInfo.CompStateName="开始竞赛"
-            this.$router.replace({name: 'manageTeam', params: {CompId: res.data.CompId, CompStateName: '开始报名'}})
+            this.$router.push({
+              name: 'manageTeam',
+              query: {
+                CompId: res.data.CompId,
+              }
+            })
           }).catch((err) => {
             console.log(err)
           })

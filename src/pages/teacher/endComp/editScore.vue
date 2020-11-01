@@ -31,16 +31,21 @@
             const params=new URLSearchParams()
              params.append('Score',this.Score)
             params.append('tips',this.tips)
-            params.append('CompListId',this.$route.params.CompListId)
+            params.append('CompListId',this.$route.query.CompListId)
             this.$axios.post("teacher/Changecomplist",params).then((res)=>{
-              if(res.data.result==='success')
-                this.$router.replace({name:"perRank",params:{CompId:this.$route.params.CompId}})
+              if(res.data.result==='success'){
+                this.$message({
+                  type: 'success',
+                  message: '修改成功'
+                });
+                this.back();
+              }
             }).catch((err)=>{
 
             })
           },
           back(){
-            this.$router.replace({name:'perRank',params:{CompId:this.$route.params.CompId}})
+            this.$router.back(-1)
           }
       }
     }

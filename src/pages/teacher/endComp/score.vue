@@ -64,7 +64,7 @@
         }
       },
       mounted(){
-          this.$axios.get('/teacher/getWorks',{params:{teamCompId:this.$route.params.teamCompId}}).then((res)=>{
+          this.$axios.get('/teacher/getWorks',{params:{teamCompId:this.$route.query.teamCompId}}).then((res)=>{
             this.tableData=res.data.data
             this.totalScore=res.data.totalScore
           }).catch((err)=>{
@@ -78,7 +78,7 @@
             if(!value){
               this.$message.error('请输入分数');
             }
-            params.append('teamCompId',this.$route.params.teamCompId)
+            params.append('teamCompId',this.$route.query.teamCompId)
             params.append('workId',this.tableData[scope.$index].workId)
             params.append('Score',value)
             this.$axios.post('/teacher/GiveScore',params).then((res)=>{
@@ -101,7 +101,7 @@
           });
         },
         getData(){
-          this.$axios.get('/teacher/getWorks',{params:{teamCompId:this.$route.params.teamCompId}}).then((res)=>{
+          this.$axios.get('/teacher/getWorks',{params:{teamCompId:this.$route.query.teamCompId}}).then((res)=>{
             this.tableData=res.data.data
             this.totalScore=res.data.totalScore
           }).catch((err)=>{
@@ -109,7 +109,7 @@
           })
         },
         back(){
-          this.$router.replace({name:'makeScore',params:{CompId:this.$store.state.compInfo.compId}})
+          this.$router.back(-1)
         }
       },
     }

@@ -45,7 +45,7 @@
       }
     },
     mounted() {
-      this.$axios.get('/users/manage/detail',{params:{teamId:this.$route.params.teamId}})
+      this.$axios.get('/users/manage/detail',{params:{teamId:this.$route.query.teamId}})
         .then((res)=>{
           if(res.data){
             this.details=res.data
@@ -58,7 +58,7 @@
     },
     methods:{
       back(){
-        this.$router.replace('/teacher/checkTeam');
+        this.$router.back(-1);
       }
     }
   }

@@ -6,8 +6,7 @@
     <div>
       <mt-loadmore :top-method="loadTop" ref="loadmore" @top-status-change="handleTopChange">
         <el-divider></el-divider>
-        <!--        <div style="text-align: left">竞赛状态：{{this.$store.state.compInfo.CompStateName}}</div>-->
-        <mt-cell title="竞赛状态:" :value="$store.state.compInfo.CompStateName"></mt-cell>
+        <mt-cell title="竞赛状态:" :value="details.CompStateName"></mt-cell>
         <mt-cell title="竞赛名称:" :value="details.compName"></mt-cell>
         <el-collapse accordion @change="handleChange">
           <el-collapse-item title="详情信息" name="1">
@@ -58,7 +57,7 @@
             </el-pagination>
           </el-collapse-item>
         </el-collapse>
-        <div style="margin-top: 25px" v-if="this.$store.state.compInfo.CompStateName!=='发布成绩'">
+        <div style="margin-top: 25px" v-if="details.CompStateName!=='发布成绩'">
           <el-button size="mini" type="primary" style="width: 20%;font-size: 10px" @click="manageMore">批量管理</el-button>
           <el-button size="mini" type="primary" style="width: 20%;font-size: 10px" @click="titleEdit">题目管理</el-button>
           <el-button size="mini" type="primary" style="width: 20%;font-size: 10px" @click="edit">信息修改</el-button>
@@ -72,7 +71,7 @@
           </el-button>
           <el-button size="mini" type="primary" style="width: 20%;font-size: 10px" @click="backToLast">重新评分</el-button>
         </div>
-        <div style="margin-top: 25px" v-if="this.$store.state.compInfo.CompStateName==='开始竞赛'">
+        <div style="margin-top: 25px" v-if="details.CompStateName==='开始竞赛'">
           <el-button type="primary" style="width: 80%" @click="makeScore">查看上交情况</el-button>
         </div>
         <div style="margin-top: 25px" v-if="isShow">
@@ -86,21 +85,22 @@
 </template>
 
 <script>
-  import pubComp from "./pubComp";
   import * as api from "@/api/api"
+  import Const from "@/pages/public/Const"
 
   export default {
     name: "manageTeam",
     data() {
       return {
-        CompStateName: '',
         search: '',
         tableData: [],
         state: '',
         isShow: false,
         compStateID: '',
         dialogVisible: false,
-        details: [],
+        details: {
+          compName: ''
+        },
         max: document.documentElement.clientHeight - 380,
         maxWidth: document.documentElement.clientWidth,
         compTypes: [],
@@ -110,16 +110,18 @@
       }
     },
     mounted() {
-      if (this.$route.params.CompId) {
+      if (this.$route.query.CompId) {
         this.$store.state.compInfo = {
-          compId: this.$route.params.CompId,
-          CompStateName: this.$route.params.CompStateName
+          compId: this.$route.query.CompId,
         }
       }
-      this.getData();
-      this.getDetail()
+      this.getDetail();
+      this.getData()
     },
     methods: {
+      getNameByCode(code) {
+        return _.find(Const['compStatus'], {code: code}).name;
+      },
       backToLast() {
         this.$messagebox.confirm('此操作将回退到上一状态, 是否继续?').then(() => {
           api.competition.reScore({CompId: this.$store.state.compInfo.compId, compStateID: 5}).then(res => {
@@ -128,8 +130,8 @@
                 message: '操作成功',
                 type: 'success'
               });
-              this.$store.state.compInfo.CompStateName = "提交成果关闭"
-              this.getData();
+              this.details.CompStateName = "提交成果关闭"
+              this.getDetail();
             }
           })
         });
@@ -141,18 +143,30 @@
         this.currentPage = currentPage;
       },
       handleCurrentChange(val) {
-        this.$router.replace({name: 'manageTeamDetail', params: {teamId: val.teamId, teamCompId: val.teamCompId}})
+        this.$router.push({
+          path: '/teacher/manageTeamDetail',
+          query: {
+            teamId: val.teamId,
+            teamCompId: val.teamCompId
+          }
+        })
       },
       handleChange(index) {
         if (index === '1')
           this.getDetail()
-        else if (index === '2'){
+        else if (index === '2') {
           this.getData();
         }
       },
       operation() {
         if (this.state === "查看榜单") {
-          this.$router.push({name: 'queryResult', params: {CompId: this.$store.state.compInfo.compId, isTeather: '1'}})
+          this.$router.push({
+            path: '/myself/queryResult',
+            query: {
+              CompId: this.$store.state.compInfo.compId,
+              isTeather: '1'
+            }
+          })
         } else {
           this.$messagebox.confirm('此操作将更新状态, 是否继续?').then(() => {
             //提交数据，更改状态
@@ -167,13 +181,13 @@
                   message: '操作成功',
                   type: 'success'
                 });
-                this.$store.state.compInfo.CompStateName = this.state
+                this.details.CompStateName = this.state
                 if (this.state === '提交成果关闭') {
                   this.isShow = true
                 } else {
                   this.isShow = false
                 }
-                this.getData();
+                this.getDetail();
               }
             }).catch((res) => {
               console.log(res)
@@ -187,28 +201,35 @@
         }
       },
       makeScore() {
-        this.$router.push({name: 'makeScore', params: {CompId: this.$store.state.compInfo.compId}})
+        this.$router.push({
+          path: '/teacher/makeScore',
+          query: {
+            CompId: this.$store.state.compInfo.compId,
+            CompStateName: this.details.CompStateName
+          }
+        })
       },
       manageMore() {
-        this.$router.replace({name: 'personnelManage', params: {CompId: this.$store.state.compInfo.compId}})
+        this.$router.push({
+          path: '/teacher/personnelManage',
+          query: {
+            CompId: this.$store.state.compInfo.compId,
+          }
+        })
       },
       titleEdit() {
-        this.$router.push({name: 'titleEdit', params: {CompId: this.$store.state.compInfo.compId}})
-      },
-      manage(scope) {
-        let tableData = []
-        tableData = this.tableData.filter(data => !this.search || data.teamName.toLowerCase().includes(this.search.toLowerCase())
-          || data.teamId.toLowerCase().includes(this.search.toLowerCase()) || data.PassState.toLowerCase().includes(search.toLowerCase()))
         this.$router.push({
-          name: 'manageTeamDetail',
-          params: {teamId: tableData[scope.$index].teamId, teamCompId: tableData[scope.$index].teamCompId}
+          path: '/teacher/titleEdit',
+          query: {
+            CompId: this.$store.state.compInfo.compId
+          }
         })
       },
       back() {
         let select = '';
-        if (this.$store.state.compInfo.CompStateName === '开始报名') {
+        if (this.details.CompStateName === '开始报名') {
           select = 'start'
-        } else if (this.$store.state.compInfo.CompStateName === '截至报名' || this.$store.state.compInfo.CompStateName === '开始竞赛') {
+        } else if (this.details.CompStateName === '截至报名' || this.details.CompStateName === '开始竞赛') {
           select = 'ing'
         } else {
           select = 'end'
@@ -217,12 +238,20 @@
       },
       edit() {
         this.$router.push({
-          name: 'pubComp',
-          params: {CompId: this.$store.state.compInfo.compId, compStateName: this.compStateName}
+          path: '/teacher/pubComp',
+          query: {
+            CompId: this.$store.state.compInfo.compId,
+            compStateName: this.details.CompStateName
+          }
         })
       },
       Rank() {
-        this.$router.replace({name: 'perRank', params: {CompId: this.$store.state.compInfo.compId}})
+        this.$router.push({
+          path: '/teacher/perRank',
+          query: {
+            CompId: this.$store.state.compInfo.compId
+          }
+        })
       },
       loadTop() {
         setTimeout(() => {
@@ -237,37 +266,38 @@
       getDetail() {
         this.$axios.get('/Competitions/detail', {params: {CompId: this.$store.state.compInfo.compId}}).then((res) => {
           this.details = res.data.data
+          this.$set(this.details, 'CompStateName', this.getNameByCode(this.details.compStateID + ''))
+          const CompStateName = this.details.CompStateName
+          if (CompStateName === '提交成果关闭') {
+            this.isShow = true
+          }
+          switch (CompStateName) {
+            case '未开始':
+              this.state = '开始报名';
+              break;
+            case '开始报名':
+              this.state = '截至报名';
+              break;
+            case '截至报名':
+              this.state = '开始竞赛';
+              break;
+            case '开始竞赛':
+              this.state = '提交成果关闭';
+              break;
+            case '提交成果关闭':
+              this.state = '发布成绩';
+              break;
+            case '发布成绩':
+              this.state = '查看榜单';
+              break;
+            default:
+              this.state = '错误';
+          }
         }).catch((err) => {
           console.log(err);
         })
       },
       getData() {
-        const CompStateName = this.$store.state.compInfo.CompStateName
-        if (CompStateName === '提交成果关闭') {
-          this.isShow = true
-        }
-        switch (CompStateName) {
-          case '未开始':
-            this.state = '开始报名';
-            break;
-          case '开始报名':
-            this.state = '截至报名';
-            break;
-          case '截至报名':
-            this.state = '开始竞赛';
-            break;
-          case '开始竞赛':
-            this.state = '提交成果关闭';
-            break;
-          case '提交成果关闭':
-            this.state = '发布成绩';
-            break;
-          case '发布成绩':
-            this.state = '查看榜单';
-            break;
-          default:
-            this.state = '错误';
-        }
         this.$axios.get('/teacher/manageTeam', {
           params: {
             CompId: this.$store.state.compInfo.compId,

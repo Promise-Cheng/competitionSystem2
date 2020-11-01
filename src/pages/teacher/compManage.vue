@@ -79,7 +79,7 @@
         pageSize: 7,
         total: 100,
         selected: 'all',
-        state: 1,
+        state: -1,
       }
     },
     watch: {
@@ -110,7 +110,8 @@
       if (this.$route.params.selected) {
         this.selected = this.$route.params.selected;
       }
-      this.getData();
+      else
+        this.getData();
     },
     methods: {
       getData() {
@@ -136,20 +137,10 @@
       },
       handleCurrentChange(val) {
         this.$router.push({
-          name: 'manageTeam',
-          params: {CompId: val.CompId, manage: '1', CompStateName: val.CompStateName}
-        })
-      },
-      getDetail(scope) {
-        let tableData = []
-        tableData = this.tableData.filter(data => !this.search || data.compName.toLowerCase().includes(this.search.toLowerCase())
-          || data.CompStateName.toLowerCase().includes(this.search.toLowerCase()))
-        this.$router.push({
-          name: 'compDetail',
-          params: {
-            CompId: tableData[scope.$index].CompId,
+          path: '/teacher/manageTeam',
+          query: {
+            CompId: val.CompId,
             manage: '1',
-            CompStateName: tableData[scope.$index].CompStateName
           }
         })
       },

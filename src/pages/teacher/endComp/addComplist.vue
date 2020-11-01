@@ -39,16 +39,16 @@
            params.append('teamMembersName',this.teamMembersName)
            params.append('Score',this.Score)
            params.append('tips',this.tips)
-           params.append('CompId',this.$route.params.CompId)
+           params.append('CompId',this.$route.query.CompId)
            this.$axios.post("/teacher/addComplist",params).then((res)=>{
              if(res.data.result==='success')
-               this.$router.replace({name:"perRank",params:{CompId:this.$route.params.CompId}})
+               this.back();
            }).catch((err)=>{
 
            })
          },
         back(){
-           this.$router.replace({name:"perRank",params:{CompId:this.$route.params.CompId}})
+           this.$router.back(-1);
         }
       }
     }

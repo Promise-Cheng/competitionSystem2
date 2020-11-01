@@ -21,7 +21,7 @@
         <mt-swipe>
           <template v-for="(item,index) in imgList">
             <mt-swipe-item :key="`user${index}`">
-              <img :src="item" height="200" :width="width" alt="加载失败！" />
+              <img :src="item" height="200" :width="width" alt="加载失败！"/>
             </mt-swipe-item>
           </template>
         </mt-swipe>
@@ -68,10 +68,10 @@
                   {{'竞赛状态：' + item.CompStateName }}
                 </div>
                 <div class="text item" style="font-size: 12px">
-                  {{'开始时间：' + item.obStartTIme.toString().substring(0,10) + ' ' +item.obStartTIme.toString().substring(11,19)  }}
+                  {{'开始时间：' + getDatetimeString(item.obStartTIme)}}
                 </div>
                 <div class="text item" style="font-size: 12px">
-                  {{'结束时间：' + item.obEndTime.toString().substring(0,10) + ' ' +item.obEndTime.toString().substring(11,19)  }}
+                  {{'结束时间：' + getDatetimeString(item.obEndTime)}}
                 </div>
                 <div class="text item" style="font-size: 12px">
                   {{'竞赛描述：' + item.compIntro }}
@@ -83,10 +83,10 @@
       </div>
       <el-divider></el-divider>
 
-      <div>
-        <div id="chart_example">
-        </div>
-      </div>
+      <!--      <div>-->
+      <!--        <div id="chart_example">-->
+      <!--        </div>-->
+      <!--      </div>-->
     </mt-loadmore>
     <Footer/>
   </div>
@@ -96,101 +96,97 @@
 <script>
   import echarts from 'echarts'
   import Footer from './teacherTabbar'
+  import moment from 'moment'
 
   export default {
     name: "home",
     components: {Footer},
     data() {
       return {
-        imgList:[
+        imgList: [
           require("@/pictures/acm.jpg"),
           require("@/pictures/BPO.jpg"),
           require("@/pictures/dzsj.jpg"),
           require("@/pictures/immc.jpg"),
         ],
-        width:window.innerWidth,
+        width: window.innerWidth,
         search: '',
         personNum: 0,
         CompNum: 0,
         CompList: [],
-        card1:'active-card',
-        card2:'box-card',
-        card3:'box-card',
-        card4:'box-card',
-        tableData:[],
-        latestComp:[
-          {
-            compName:'',
-            CompTypeName:'',
-            CompStateName:'',
-            obStartTIme:'',
-            compIntro:'',
-            obEndTime:'',
-          },
-          {
-            compName:'',
-            CompTypeName:'',
-            CompStateName:'',
-            obStartTIme:'',
-            compIntro:'',
-            obEndTime:'',
-          },
-          {
-            compName:'',
-            CompTypeName:'',
-            CompStateName:'',
-            obStartTIme:'',
-            compIntro:'',
-            obEndTime:'',
-          },
-          {
-            compName:'',
-            CompTypeName:'',
-            CompStateName:'',
-            obStartTIme:'',
-            compIntro:'',
-            obEndTime:'',
-          },
-        ]
+        card1: 'active-card',
+        card2: 'box-card',
+        card3: 'box-card',
+        card4: 'box-card',
+        tableData: [],
+        latestComp: []
       }
     },
-    computed:{
-
-    },
+    computed: {},
     methods: {
-      goComptitionDetail(index){
-        this.$router.push({name:'compDetail',params:{CompId:this.latestComp[index].CompId
-            ,compStateName:this.latestComp[index].CompStateName,isHome:'1'}})
+      getDatetimeString(time) {
+        return moment(time).format('YYYY-MM-DD HH:mm:ss');
       },
-      goTeam(){
+      goComptitionDetail(index) {
+        this.$router.push({
+          path: '/teacher/compDetail',
+          query: {
+            CompId: this.latestComp[index].CompId,
+            compStateName: this.latestComp[index].CompStateName,
+            isHome: '1'
+          }
+        })
+      },
+      goTeam() {
         this.$router.push('/teacher/checkTeam');
       },
-      goComptition(){
+      goComptition() {
         this.$router.push('/teacher/competition');
       },
-      getLatestComp(){
-        this.$axios.get('/Competitions/latest',{params:{status:-1,size:4}}).then((res)=>{
-          this.latestComp=res.data.data
-        }).catch((err)=>{
+      getLatestComp() {
+        this.$axios.get('/Competitions/latest', {params: {status: -1, size: 4}}).then((res) => {
+          this.latestComp = res.data.data
+        }).catch((err) => {
           console.log(err)
         })
       },
-      cardChange(newIndex,oldIndex){
+      cardChange(newIndex, oldIndex) {
         switch (oldIndex) {
-          case 0:  this.$set(this,"card1",'box-card'); break;
-          case 1:  this.card2='box-card'; break;
-          case 2:  this.card3='box-card'; break;
-          case 3:  this.card4='box-card'; break;
+          case 0:
+            this.$set(this, "card1", 'box-card');
+            break;
+          case 1:
+            this.card2 = 'box-card';
+            break;
+          case 2:
+            this.card3 = 'box-card';
+            break;
+          case 3:
+            this.card4 = 'box-card';
+            break;
         }
         switch (newIndex) {
-          case 0:  this.$set(this,"card1",'active-card'); break;
-          case 1:  this.card2='active-card'; break;
-          case 2:  this.card3='active-card'; break;
-          case 3:  this.card4='active-card'; break;
+          case 0:
+            this.$set(this, "card1", 'active-card');
+            break;
+          case 1:
+            this.card2 = 'active-card';
+            break;
+          case 2:
+            this.card3 = 'active-card';
+            break;
+          case 3:
+            this.card4 = 'active-card';
+            break;
         }
       },
       ToSearch() {
-        this.$router.push({name: 'compSearch1', params: {search: this.search}})
+        this.$router.push({
+          name: 'compSearch1',
+          query: {
+            search: this.search
+          }
+        })
       },
       handleCommand(command) {
         switch (command) {
@@ -211,10 +207,10 @@
           this.$refs.loadmore.onTopLoaded();
         }, 1000);
       },
-      getNewCompData(){
-        this.$axios.get('/Competitions/show',{params:{status:0}}).then((res)=>{
-          this.tableData=res.data.data
-        }).catch((err)=>{
+      getNewCompData() {
+        this.$axios.get('/Competitions/show', {params: {status: 0}}).then((res) => {
+          this.tableData = res.data.data
+        }).catch((err) => {
           console.log(err);
         })
       },
@@ -230,48 +226,48 @@
             CompNumber.push(this.CompList[compList].Sum)
           }
           let this_ = this;
-          let myChart = echarts.init(document.getElementById('chart_example'));
-          let option = {
-            title: {text: '各类竞赛数量统计'},
-            color: ['#f44'],
-            tooltip: {
-              trigger: 'axis',
-              axisPointer: {
-                type: 'shadow'
-              },
-
-            },
-            xAxis: [
-              {
-                type: 'category',
-                data: CompName,
-                axisLabel:{
-                  interval: 0
-                },
-                axisTick: {
-                  alignWithLabel: true
-                }
-              }
-            ],
-            yAxis: [
-              {
-                type: 'value'
-              }
-            ],
-            series: [
-              {
-                name: '数量',
-                type: 'bar',
-                barWidth: '60%',
-                data: CompNumber,
-              }
-            ]
-          };
-          myChart.setOption(option);
-          //建议加上以下这一行代码，不加的效果图如下（当浏览器窗口缩小的时候）。超过了div的界限（红色边框）
-          window.addEventListener('resize', function () {
-            myChart.resize()
-          });
+          // let myChart = echarts.init(document.getElementById('chart_example'));
+          // let option = {
+          //   title: {text: '各类竞赛数量统计'},
+          //   color: ['#f44'],
+          //   tooltip: {
+          //     trigger: 'axis',
+          //     axisPointer: {
+          //       type: 'shadow'
+          //     },
+          //
+          //   },
+          //   xAxis: [
+          //     {
+          //       type: 'category',
+          //       data: CompName,
+          //       axisLabel:{
+          //         interval: 0
+          //       },
+          //       axisTick: {
+          //         alignWithLabel: true
+          //       }
+          //     }
+          //   ],
+          //   yAxis: [
+          //     {
+          //       type: 'value'
+          //     }
+          //   ],
+          //   series: [
+          //     {
+          //       name: '数量',
+          //       type: 'bar',
+          //       barWidth: '60%',
+          //       data: CompNumber,
+          //     }
+          //   ]
+          // };
+          // myChart.setOption(option);
+          // //建议加上以下这一行代码，不加的效果图如下（当浏览器窗口缩小的时候）。超过了div的界限（红色边框）
+          // window.addEventListener('resize', function () {
+          //   myChart.resize()
+          // });
         }).catch((err) => {
           console.log(err)
         })
@@ -299,14 +295,17 @@
   .el-carousel__item:nth-child(n) {
     background-color: #99a9bf;
   }
+
   .active-card {
     background-color: #d3dce6;
     height: 100%;
   }
-  .box-card{
+
+  .box-card {
     background-color: #99a9bf;
     height: 100%;
   }
+
   /*.el-carousel__item:nth-child(2n+1) {*/
   /*  background-color: #d3dce6;*/
   /*}*/
