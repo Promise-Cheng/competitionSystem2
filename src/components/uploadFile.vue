@@ -3,7 +3,7 @@
     <el-upload
       class="upload-demo"
       ref="upload"
-      action="http://localhost:8085/users/uploadWorks"
+      action="http://localhost:8085/files/uploadWorks"
       :before-upload="beforeUpload"
       :on-success="onSuccessData"
       :file-list="fileList">
@@ -70,7 +70,6 @@
       },
       // 手动上传文件到服务器
       submitUpload() {
-        console.log('上传' + this.files[0].name)
         let fileFormData = new FormData();
         for (let index in this.files) {
           fileFormData.append('file', this.files[index]);//filename是键，file是值，就是要传的文件，test.zip是要传的文件名
@@ -84,7 +83,7 @@
             'Content-Type': 'multipart/form-data'
           },
         }
-        this.$axios.post(`/users/uploadWorks`, fileFormData, requestConfig)
+        this.$axios.post(`/files/uploadWorks`, fileFormData, requestConfig)
           .then((res) => {
             if (res.data.status === "success") {
               this.$message({
