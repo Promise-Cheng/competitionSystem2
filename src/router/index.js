@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import {get} from '../api/axios'
 import Router from 'vue-router'
 import Home from '../components/home'
 import CompSearch from '../components/compSearch'
@@ -6,7 +7,6 @@ import TeamSearch from '../components/teamSearch'
 import HomeNews from '../components/news'
 import CompIntroduce from '../components/compIntroduce'
 import store from '@/store'
-
 /* stuMyself */
 import Login from '../pages/myself/login'
 import Register from '../pages/myself/register'
@@ -128,7 +128,8 @@ const router = new Router({
       name: 'myself',
       component: Index,
       meta: {
-        keepAlive: true // 不需要缓存
+        keepAlive: true, // 不需要缓存
+        bypass: true
       }
     },
     {
@@ -449,21 +450,24 @@ const router = new Router({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  const role = sessionStorage.getItem('ms_username');
-  let index = to.path.lastIndexOf('teacher')
-  if (!role && to.path !== '/login' && to.path !== '/login_tea' && to.path !== '/register' && to.path !== '/register_tea') {
-    if (index === -1)
-      next('/login');
-    else {
-      next('/login_tea');
+router.beforeEach(async (to, from, next) => {
+  if (to.path === '/login' && store.state.isLoaded) {
+    store.dispatch('clearSystems')
+  }
+  if (!to.meta.bypass) {
+    return next()
+  }
+  try {
+    const res = await get('/api/checkSession', {})
+    if (res.ok) {
+      if (!store.state.isLoaded)
+        await store.dispatch('getUserInfo')
+      return next()
     }
-  } else {
-    if (!store.state.isLoaded)
-      store.dispatch('getUserInfo');
-    next();
+    return next({name: 'Login', query: {next: to.fullPath}})
+  } catch (err) {
+    return next({name: 'Login'})
   }
 })
-
 export default router
 

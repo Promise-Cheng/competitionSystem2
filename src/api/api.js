@@ -2,7 +2,6 @@
  * api接口统一管理
  */
 import {formDataPost, get, post} from './axios'
-
 export const common = {
   /**
    * 登录接口
@@ -17,7 +16,9 @@ export const common = {
    */
   login_tea: (params) => post('/teacher/login', params),
   register: (params) => post("/register", params),
-  getHomeData: (params) => get('/home', params)
+  getHomeData: (params) => get('/home', params),
+  loginOut: () => post('/logout', {}),
+  getUserInfo: () => get('/getUserInfo', {}),
 }
 export const competition = {
   /**

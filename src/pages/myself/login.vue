@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import store from "@/store";
+  import * as api from '@/api/api'
 
   export default {
     name: "login",
@@ -70,53 +70,25 @@
         }
         params.append('password', this.password);
         this.Loading = true;
-        if (this.radio === '1') {
-          this.$axios.post('/login', params).then((res) => {
-            if (res) {
-              if (res.data.result === 'success') {
-                this.Loading = false;
-                sessionStorage.setItem('ms_username', this.stuId);
-                sessionStorage.setItem('ms_password', this.password);
-                sessionStorage.setItem('userType', '0');
-                this.$store.dispatch('getUserInfo');
-                this.$message({
-                  message: '登录成功',
-                  type: 'success'
-                });
-                this.$router.push('/home')
-              } else {
-                this.Loading = false;
-                this.$message.error('用户名或密码错误');
-              }
-            }
-          }).catch((err) => {
-            this.Loading = false;
-            this.$message.error("" + err);
-          })
-        } else {
-          this.$axios.post('/teacher/login',
-            params
-          ).then((res) => {
-            if (res) {
-              if (res.data.result === 'success') {
-                this.Loading = false;
-                this.$store.state.user = {user: this.stuId, info: res.data.data}
-                this.$message({
-                  message: '登录成功',
-                  type: 'success'
-                });
-                this.$router.push('/teacher/home')
-              } else {
-                this.Loading = false;
-                this.$message.error('用户名或密码错误');
-              }
-            }
-          }).catch((err) => {
-            this.Loading = false;
-            this.$message.error("" + err);
-          })
-        }
-
+        api.common.login({stuNum: this.stuId, password: this.password}).then((res) => {
+          if (res.result === 'success') {
+            this.$store.dispatch('getUserInfo', res.info)
+            this.$message({
+              message: '登录成功',
+              type: 'success'
+            });
+            this.$router.push('/home')
+          } else {
+            this.Loading = false
+            this.$message({
+              message: '用户名或密码错误',
+              type: 'error'
+            });
+          }
+        }).catch((err) => {
+          Toast.fail(err)
+          this.Loading = false
+        })
       },
     }
   }
