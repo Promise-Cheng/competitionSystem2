@@ -315,6 +315,7 @@ const router = new Router({
       name: 'teacherManage',
       component: TeacherManage,
       meta: {
+        bypass: true,
         keepAlive: true // 不需要缓存
       }
     },
@@ -323,6 +324,7 @@ const router = new Router({
       name: 'teacherMyself',
       component: TeacherMyself,
       meta: {
+        bypass: true,
         keepAlive: true // 不需要缓存
       }
     },
@@ -464,8 +466,14 @@ router.beforeEach(async (to, from, next) => {
         await store.dispatch('getUserInfo')
       return next()
     }
+    if(to.path.indexOf('teacher') !== -1){
+      return next({name: 'teacherLogin', query: {next: to.fullPath}})
+    }
     return next({name: 'Login', query: {next: to.fullPath}})
   } catch (err) {
+    if(to.path.indexOf('teacher') !== -1){
+      return next({name: 'teacherLogin'})
+    }
     return next({name: 'Login'})
   }
 })
