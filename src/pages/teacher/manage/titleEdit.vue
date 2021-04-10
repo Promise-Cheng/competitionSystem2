@@ -34,13 +34,15 @@
       </el-table-column>
     </el-table>
     <el-divider></el-divider>
-    <div>请到网页版对题目进行相关操作</div>
+    <upload-file isCustomize @submit-upload="submitUpload" />
   </div>
 </template>
 
 <script>
+  import UploadFile from "../../../components/uploadFile";
   export default {
     name: "titleEdit",
+    components: { UploadFile },
     data(){
       return{
         tableData:[],
@@ -53,6 +55,9 @@
       })
     },
     methods:{
+      submitUpload(files) {
+
+      },
       back(){
         this.$router.back(-1)
       }

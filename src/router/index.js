@@ -469,12 +469,12 @@ router.beforeEach(async (to, from, next) => {
     if(to.path.indexOf('teacher') !== -1){
       return next({name: 'teacherLogin', query: {next: to.fullPath}})
     }
-    return next({name: 'Login', query: {next: to.fullPath}})
+    return next({name: 'login', query: {next: to.fullPath}})
   } catch (err) {
     if(to.path.indexOf('teacher') !== -1){
       return next({name: 'teacherLogin'})
     }
-    return next({name: 'Login'})
+    return next({name: 'login'})
   }
 })
 export default router
