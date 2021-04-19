@@ -367,6 +367,11 @@ const router = new Router({
       component: TitleEdit
     },
     {
+      path: '/teacher/addQuestion',
+      name: 'AddQuestion',
+      component: () => import(/* webpackChunkName: "group-foo" */ '../pages/teacher/manage/AddQuestion')
+    },
+    {
       path: '/teacher/personnelManage',
       name: 'personnelManage',
       component: PersonnelManage,

@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  background: #ddd;
+  overflow: hidden;
+  height: calc(100vh - 70px);
+}
+
+.background-default {
+  background: #fff;
+}
+
+.operate-buttons {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  padding: 8px;
+  text-align: left;
+  font-size: 18px;
+  width: 100%;
+}
+
+.mint-field .mint-cell-title {
+  text-align: left;
+}
+.el-upload-list__item-name {
+  text-align: left;
+}
+.el-upload-list__item .el-icon-close {
+  display: inline !important;
+}

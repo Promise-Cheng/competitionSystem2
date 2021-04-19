@@ -10,18 +10,12 @@
       :file-list="fileList">
       <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
       <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-      <!--      <div slot="tip" class="el-upload-list__item-name">-->
-      <!--        <div v-for="(item,index) in files" :key="`user${index}`">-->
-      <!--          <mt-cell :title="item.name"> test</mt-cell>-->
-      <!--        </div>-->
-      <!--      </div>-->
+      <div v-if="isShowTips" slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
     </el-upload>
   </div>
 </template>
 
 <script>
-import * as api from '@/api/api'
 
 export default {
   name: "uploadFile",
@@ -46,6 +40,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isShowTips: {
+      type: Boolean,
+      default: true,
+    },
 
   },
   data() {
@@ -56,18 +54,12 @@ export default {
     };
   },
   methods: {
-    // 文件上传时的验证,自定义验证规则,
     beforeUpload(file) {
-      // debugger(打断点)
-      console.log(file, '文件');
+      if(!this.isShowTips){
+        return false
+      }
       this.files.push(file);
-      // const extension = file.name.split('.')[1] === 'xls'
-      // const extension2 = file.name.split('.')[1] === 'xlsx'
       const isLt2M = file.size / 1024 / 1024 < 5
-      // if (!extension && !extension2) {
-      //   this.$message.warning('上传模板只能是 xls、xlsx格式!')
-      //   return
-      // }
       if (!isLt2M) {
         this.$message.warning('上传模板大小不能超过 5MB!')
         return

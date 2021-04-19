@@ -34,31 +34,38 @@
       </el-table-column>
     </el-table>
     <el-divider></el-divider>
-    <upload-file isCustomize @submit-upload="submitUpload" />
+    <el-button type="primary" @click="handleAddQuestion">添加题目</el-button>
+    <!--    <upload-file isCustomize @submit-upload="submitUpload" />-->
   </div>
 </template>
 
 <script>
   import UploadFile from "../../../components/uploadFile";
+
   export default {
     name: "titleEdit",
-    components: { UploadFile },
-    data(){
-      return{
-        tableData:[],
-        search:''
+    components: {UploadFile},
+    data() {
+      return {
+        tableData: [],
+        search: ''
       }
     },
-    mounted(){
-      this.$axios.get('/teacher/Topics',{params:{CompId:this.$route.query.CompId}}).then((res)=>{
-        this.tableData=res.data.data
+    mounted() {
+      this.$axios.get('/teacher/Topics', {params: {CompId: this.$route.query.CompId}}).then((res) => {
+        this.tableData = res.data.data
       })
     },
-    methods:{
-      submitUpload(files) {
-
+    methods: {
+      handleAddQuestion() {
+        this.$router.push({
+          path: '/teacher/addQuestion',
+          query: {
+            compId: this.$route.query.CompId
+          }
+        })
       },
-      back(){
+      back() {
         this.$router.back(-1)
       }
     }
@@ -66,11 +73,11 @@
 </script>
 
 <style scoped>
-  .nav{
-    position:absolute; /* 绝对定位，fixed是相对于浏览器窗口定位。 */
-    top:20px; /* 距离窗口顶部距离 */
-    left:10px; /* 距离窗口左边的距离 */
-    width:100%; /* 宽度设置为100% */
-    z-index:99; /* 层叠顺序，数值越大就越高。页面滚动的时候就不会被其他内容所遮挡。 */
+  .nav {
+    position: absolute; /* 绝对定位，fixed是相对于浏览器窗口定位。 */
+    top: 20px; /* 距离窗口顶部距离 */
+    left: 10px; /* 距离窗口左边的距离 */
+    width: 100%; /* 宽度设置为100% */
+    z-index: 99; /* 层叠顺序，数值越大就越高。页面滚动的时候就不会被其他内容所遮挡。 */
   }
 </style>

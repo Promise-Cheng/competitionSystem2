@@ -4,6 +4,7 @@ import Vue from 'vue'
 import router from './router'
 import Mint from'mint-ui'
 import './style/weui.scss';
+import './style/common.scss';
 import'mint-ui/lib/style.css'
 import lodash from 'lodash'
 
