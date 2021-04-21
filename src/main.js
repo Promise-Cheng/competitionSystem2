@@ -30,7 +30,7 @@ axios.defaults.timeout=5000;
 axios.defaults.withCredentials=true;
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 // axios.defaults.baseURL='http://172.20.10.3:3000';http://101.37.13.10:8080  http://101.37.13.10/
-axios.defaults.baseURL='http://localhost:8085';    // http://localhost:8085     http://101.37.13.10:8085
+axios.defaults.baseURL='http://172.16.9.139:8085';    // http://localhost:8085     http://101.37.13.10:8085
 Vue.prototype.$axios = axios;
 /*
 引入vuex

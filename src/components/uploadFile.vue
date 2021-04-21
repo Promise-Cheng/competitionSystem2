@@ -4,10 +4,7 @@
       class="upload-demo"
       ref="upload"
       action="http://localhost:8085/files/uploadWorks"
-      :before-upload="beforeUpload"
-      :on-success="onSuccessData"
-      :auto-upload="false"
-      :file-list="fileList">
+      :auto-upload="false">
       <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
       <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
       <div v-if="isShowTips" slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -25,11 +22,11 @@ export default {
       default: '',
     },
     teamCompId: {
-      type: Number,
+      type: Number | String,
       default: -1,
     },
     question: {
-      type: Number,
+      type: Number | String,
       default: -1,
     },
     introduction: {
@@ -54,24 +51,13 @@ export default {
     };
   },
   methods: {
-    beforeUpload(file) {
-      if(!this.isShowTips){
-        return false
-      }
-      this.files.push(file);
-      const isLt2M = file.size / 1024 / 1024 < 5
-      if (!isLt2M) {
-        this.$message.warning('上传模板大小不能超过 5MB!')
-        return
-      }
-      return false // 返回false不会自动上传
-    },
     // 手动上传文件到服务器
     submitUpload() {
+      let files = this.$refs.upload.uploadFiles
       if (!this.isCustomize) {
         let fileFormData = new FormData();
-        for (let index in this.files) {
-          fileFormData.append('file', this.files[index]);//filename是键，file是值，就是要传的文件，test.zip是要传的文件名
+        for (let index in files) {
+          fileFormData.append('files', files[index].raw);//filename是键，file是值，就是要传的文件，test.zip是要传的文件名
         }
         fileFormData.append('workName', this.workName);
         fileFormData.append('teamCompId', this.teamCompId);
@@ -96,13 +82,8 @@ export default {
             }
           })
       } else {
-        this.$emit('submit-upload', this.files)
+        this.$emit('submit-upload', files)
       }
-    },
-    onSuccessData(response, file, fileList) {
-      console.log(response)
-      console.log(file)
-      console.log(fileList)
     },
   }
 }

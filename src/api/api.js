@@ -70,7 +70,7 @@ export const question = {
    * @returns {Promise | Promise<unknown>}
    */
   getDetail: (params) => get('teacher/TopicDetail', params),
-  downloadFile: (params) => get('teacher/TopicDetail', params),
+  downloadFile: (params) => get('/files/question/download', params),
 }
 
 export const work = {

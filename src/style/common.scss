@@ -1,8 +1,7 @@
 body {
-  margin: 0;
-  background: #ddd;
-  overflow: hidden;
-  height: calc(100vh - 70px);
+  overflow: auto;
+  height: calc(100vh);
+  margin: 0 8px;
 }
 
 .background-default {

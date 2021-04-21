@@ -1,12 +1,27 @@
 import axios from 'axios'
+import {Message} from "element-ui";
 // 环境的切换  设置axios的默认请求地址
 // 通过node的环境变量来匹配我们的默认的接口url前缀
-axios.defaults.baseURL = 'http://localhost:8085';//http://101.37.13.10:8085   http://localhost:8085 http://8.135.135.96:8085
-axios.defaults.withCredentials=true;
+axios.defaults.baseURL = 'http://172.16.9.139:8085';//http://101.37.13.10:8085   http://localhost:8085 http://8.135.135.96:8085
+axios.defaults.withCredentials = true;
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 //设置请求超时
 axios.defaults.timeout = 10000;
-
+axios.interceptors.response.use((res) => {
+  if (res.data.code === 401) {
+    Message({
+      type: 'info',
+      message: res.data.message
+    })
+    let index = window.location.href.indexOf('teacher')
+    window.location.href = index === -1 ? '/#/login' : '/#/login_tea'
+    return Promise.reject()
+  }
+  return Promise.resolve(res);
+}, (error) => {
+  return Promise.reject(error);
+})
+const request = axios
 /**
  * post方法，对应post请求
  * @param {String} url [请求的url地址]
@@ -31,9 +46,10 @@ export const formDataPost = (url, ...params) => {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
-    data:getPostParams(params),
+    data: getPostParams(params),
   });
 };
+
 export function getPostParams(params) {
   let keyArr = Object.keys(params[0]);
   let urlSearchParams = new URLSearchParams();
@@ -42,7 +58,6 @@ export function getPostParams(params) {
   })
   return urlSearchParams;
 }
-
 
 /**
  * get方法，对应get请求
@@ -101,3 +116,5 @@ export const patch = (url, params) => {
       })
   })
 }
+
+export default request

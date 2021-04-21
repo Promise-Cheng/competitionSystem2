@@ -36,7 +36,6 @@
         let CompId = this.$route.query.compId || ''
         let fileFormData = new FormData()
         let files = this.$refs.questionFile.getFileList()
-        console.log(files)
         for (let index in files) {
           fileFormData.append('files', files[index].raw);
         }
@@ -57,13 +56,11 @@
                 type: 'success',
                 duration: 1500,
               })
+              this.back(-1);
             } else {
               this.$message.error("上传失败！请重新操作")
             }
           })
-      },
-      afterUpload() {
-        this.back();
       },
       back() {
         this.$router.back(-1)

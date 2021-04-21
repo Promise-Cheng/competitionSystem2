@@ -23,11 +23,10 @@
          </div>
         </div>
       </div>
-      <mt-field label="文件描述:" :value="details.fileDesc" readonly type="textarea" rows="4"></mt-field>
+      <mt-field label="文件描述:" :value="details.questionIntro" readonly type="textarea" rows="4"></mt-field>
       <mt-field v-if="this.$route.query.CompState==='发布成绩'" label="文件描述:" :value="details.questionAnsw" readonly
                 type="textarea" rows="4"></mt-field>
     </div>
-    <el-button @click="downloadFile" size="mini" type="primary" style="width: 80%">题目下载</el-button>
     <el-divider></el-divider>
     <template v-if="state === '3'">
       <div style="text-align: center;font-size: 24px;width: 100%;margin-bottom: 20px">作品上传</div>
@@ -36,7 +35,7 @@
         @after-upload="afterUpload"
         :introduction="'测试'"
         :question="this.$route.query.questionId"
-        :team-comp-id="this.$route.query.teamCompId"></upload-file>
+        :team-comp-id="this.$route.query.teamCompId + ''"></upload-file>
     </template>
   </div>
 </template>
@@ -83,12 +82,7 @@ export default {
       this.back();
     },
     handleDownload(item) {
-      api.question.downloadFile({
-        savedPath: this.details.files['exp2_simple+query1.doc'],
-        realName: this.details.questionName + '竞赛题目.txt'
-      }).then((res) => {
-        console.log(res)
-      })
+      window.open(`http://172.16.9.139:8085/files/question/download?path=${item.fileUrl}&fileName=${item.fileName}`)
     },
     back() {
       this.$router.back(-1);

@@ -364,7 +364,10 @@ const router = new Router({
     {
       path: '/teacher/titleEdit',
       name: 'titleEdit',
-      component: TitleEdit
+      component: TitleEdit,
+      meta: {
+        keepAlive: true // 不需要缓存
+      }
     },
     {
       path: '/teacher/addQuestion',
